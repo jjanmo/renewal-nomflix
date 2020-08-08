@@ -4,13 +4,15 @@
 
 > Learn react and make movie app 🚀
 
+> with [NomadCoders React Course](https://nomadcoders.co/react-for-beginners)
+
 ## Pages and Sections
 
 - Home page
 
   - [ ] now playing movies
   - [ ] upcoming movies
-  - [ ] today airing TVs
+  - [ ] airing today TVs
 
 - Movie page
 
@@ -27,7 +29,3 @@
   > Can look for movie or TV
 - Moive/TV detail page
   > Contain Each movie or TV details
-
-# Ref
-
-- [NomadCoders React Course]()

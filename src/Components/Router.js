@@ -1,9 +1,10 @@
 import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import Home from 'Screens/Home';
-import TV from 'Screens/TV';
-import Search from 'Screens/Home';
-import Header from './Components/Header';
+import Header from './Header';
+import Home from './../Route/Home';
+import Movie from './../Route/Movie';
+import TV from './../Route/TV';
+import Search from './../Route/Search';
 
 function Routers() {
 	return (
@@ -11,6 +12,9 @@ function Routers() {
 			<Header />
 			<Route path="/" exact component={Home}>
 				Home
+			</Route>
+			<Route path="/movie" exact component={Movie}>
+				Movie
 			</Route>
 			<Route path="/tv" component={TV}>
 				TV
