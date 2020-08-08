@@ -4,11 +4,29 @@
 
 > Learn react and make movie app 🚀
 
-## Screens
+## Pages and Sections
 
-- [ ] Home
-- [ ] Movie Details
-- [ ] Search
+- Home page
+
+  - [ ] now playing movies
+  - [ ] upcoming movies
+  - [ ] today airing TVs
+
+- Movie page
+
+  - [ ] popular movies
+  - [ ] top rated movies
+
+- TV page
+
+  - [ ] popular TVs
+  - [ ] top rated TVs
+  - [ ] on the air TVs in the next 7 days
+
+- Search page
+  > Can look for movie or TV
+- Moive/TV detail page
+  > Contain Each movie or TV details
 
 # Ref
 
