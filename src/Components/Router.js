@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import Header from './Header';
+import Navigation from './Navigation';
 import Home from './../Route/Home';
 import Movie from './../Route/Movie';
 import TV from './../Route/TV';
@@ -9,7 +9,7 @@ import Search from './../Route/Search';
 function Routers() {
 	return (
 		<Router>
-			<Header />
+			<Navigation />
 			<Route path="/" exact component={Home}>
 				Home
 			</Route>
