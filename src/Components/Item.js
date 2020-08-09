@@ -8,12 +8,9 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
 `;
-const Poster = styled.div`
+const Poster = styled.img`
     border-radius: 5px;
-    background: url(${(props) => `https://image.tmdb.org/t/p/w200/${props.poster}`}) center center / cover no-repeat;
-    /* padding-top: calc (300 / 200 * 100); */
-    width: 180px;
-    height: 270px;
+    width: 80%;
 `;
 const Title = styled.span``;
 const Rating = styled.span``;
@@ -23,7 +20,7 @@ function Item({ id, title, poster, rating, isMovie = false, year }) {
     return (
         <Link to={isMovie ? `/movie/${id}` : `/tv/${id}`}>
             <Container>
-                <Poster poster={poster} />
+                <Poster src={`https://image.tmdb.org/t/p/w200/${poster}`} />
                 <Title>{title}</Title>
                 <ReleasedYear>{year}</ReleasedYear>
                 <Rating>{rating}</Rating>

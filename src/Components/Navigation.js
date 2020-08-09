@@ -73,16 +73,40 @@ const SLink = styled(Link)`
 
 const SearchInput = styled.input`
     width: 60%;
-    height: 90%;
+    height: 85%;
     background-color: #316282;
     font-size: 1rem;
     border: 1px solid rgba(0, 0, 0, 0.3);
     text-decoration: none;
     outline: none;
-    margin-right: 1rem;
+    margin-right: 1.1rem;
+    color: #fff;
+    padding: 0 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+        sans-serif;
+    font-size: 1rem;
+    border-radius: 5px;
+    box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.2);
+    &::placeholder {
+        color: #fff;
+        font-family: inherit;
+        font-size: 1.1rem;
+        text-align: center;
+    }
+    &:hover {
+        box-shadow: 0 0 0 1px #b2bec3;
+    }
 `;
 
 const SearchIcon = styled.span``;
+
+function handleSubmit(event) {
+    // event.prevent.default();
+    const {
+        target: { value },
+    } = event;
+    console.log(value);
+}
 
 function Navigation() {
     return (
@@ -98,7 +122,9 @@ function Navigation() {
                     <SLink to="/tv">TV</SLink>
                 </Item>
                 <Item>
-                    <SearchInput />
+                    <SLink to="/search">
+                        <SearchInput placeholder="SEARCH" autocomplete="off" onSubmit={handleSubmit} />
+                    </SLink>
                 </Item>
             </InnerBox>
         </Header>
