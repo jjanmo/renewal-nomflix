@@ -26,6 +26,7 @@ export const movieApi = {
 			},
 		}),
 	getActors: (id) => api.get(`/movie/${id}/credits`),
+	getCollection: (id) => api.get(`/collection/${id}`),
 };
 
 export const tvApi = {

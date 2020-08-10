@@ -44,16 +44,20 @@ function Actors({ id, isMovie = false }) {
 	const [actors, setActors] = useState([]);
 
 	const fetchData = async () => {
-		if (isMovie) {
-			const {
-				data: { cast },
-			} = await movieApi.getActors(id);
-			setActors(cast.slice(0, 4));
-		} else {
-			const {
-				data: { cast },
-			} = await tvApi.getActors(id);
-			setActors(cast.slice(0, 4));
+		try {
+			if (isMovie) {
+				const {
+					data: { cast },
+				} = await movieApi.getActors(id);
+				setActors(cast.slice(0, 4));
+			} else {
+				const {
+					data: { cast },
+				} = await tvApi.getActors(id);
+				setActors(cast.slice(0, 4));
+			}
+		} catch (e) {
+			console.log(e);
 		}
 	};
 
@@ -63,7 +67,7 @@ function Actors({ id, isMovie = false }) {
 
 	return (
 		<Container>
-			<Title>actors </Title>
+			<Title>actors</Title>
 			<List>
 				{actors.map((actor, index) => (
 					<Item key={index}>

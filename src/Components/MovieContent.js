@@ -99,7 +99,9 @@ function MovieContent({ movie }) {
 					<Poster src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} />
 				</RightBox>
 			</Container>
-			<Collection />
+			{movie.belongs_to_collection && (
+				<Collection id={movie.belongs_to_collection.id} />
+			)}
 		</>
 	);
 }

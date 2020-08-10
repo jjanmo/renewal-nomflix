@@ -8,20 +8,25 @@ const Container = styled.div`
 	justify-content: center;
 	align-items: center;
 `;
-const Poster = styled.img`
+const Poster = styled.div`
 	border-radius: 5px;
-	width: 80%;
+	background-image: url(${(props) => props.posterUrl});
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 150px;
+	height: 200px;
 `;
 const Title = styled.span``;
 const Rating = styled.span``;
 const ReleasedYear = styled.span``;
 
-function Item({ id, title, poster, rating, isMovie = false, year }) {
+function Item({ id, title, poster, rating, year, isMovie = false }) {
 	return (
 		<Link to={isMovie ? `/movie/${id}` : `/tv/${id}`}>
 			<Container>
 				<Poster
-					src={
+					posterUrl={
 						poster
 							? `https://image.tmdb.org/t/p/w200/${poster}`
 							: require('../assets/no_poster.png')
