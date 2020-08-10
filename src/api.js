@@ -1,13 +1,5 @@
 import axios from 'axios';
 
-/*
-axios 0.19 ~ issue
-
-var instance = axios.create({
-  //should not add 'method' option here
-});
-*/
-
 const api = axios.create({
 	baseURL: 'https://api.themoviedb.org/3/',
 	params: {
@@ -27,6 +19,13 @@ export const movieApi = {
 				query: encodeURIComponent(term),
 			},
 		}),
+	getDetail: (id) =>
+		api.get(`movie/${id}`, {
+			params: {
+				append_to_response: 'videos,images',
+			},
+		}),
+	getActors: (id) => api.get(`/movie/${id}/credits`),
 };
 
 export const tvApi = {
@@ -40,4 +39,11 @@ export const tvApi = {
 				query: encodeURIComponent(term),
 			},
 		}),
+	getDetail: (id) =>
+		api.get(`tv/${id}`, {
+			params: {
+				append_to_response: 'videos,images',
+			},
+		}),
+	getActors: (id) => api.get(`/tv/${id}/credits`),
 };
