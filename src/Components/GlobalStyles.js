@@ -3,6 +3,14 @@ import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle`
     ${reset};
+    :root{
+        @media screen and (max-width : 1280px)  {
+            font-size : 16px;
+        }
+        @media screen and (min-width : 1281px)  {
+            font-size : 20px;
+        }
+    }
     *{
         box-sizing: border-box;
         padding : 0;
