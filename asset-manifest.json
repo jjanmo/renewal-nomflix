@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.js": "/renewal-nomflix/static/js/main.fb5f747c.chunk.js",
+    "main.js.map": "/renewal-nomflix/static/js/main.fb5f747c.chunk.js.map",
+    "runtime-main.js": "/renewal-nomflix/static/js/runtime-main.aab67097.js",
+    "runtime-main.js.map": "/renewal-nomflix/static/js/runtime-main.aab67097.js.map",
+    "static/js/2.f214021f.chunk.js": "/renewal-nomflix/static/js/2.f214021f.chunk.js",
+    "static/js/2.f214021f.chunk.js.map": "/renewal-nomflix/static/js/2.f214021f.chunk.js.map",
+    "index.html": "/renewal-nomflix/index.html",
+    "precache-manifest.9a0a4637d8fb4150fd15f85d247b2cab.js": "/renewal-nomflix/precache-manifest.9a0a4637d8fb4150fd15f85d247b2cab.js",
+    "service-worker.js": "/renewal-nomflix/service-worker.js",
+    "static/js/2.f214021f.chunk.js.LICENSE.txt": "/renewal-nomflix/static/js/2.f214021f.chunk.js.LICENSE.txt",
+    "static/media/loader.gif": "/renewal-nomflix/static/media/loader.07812312.gif",
+    "static/media/logo_blue.png": "/renewal-nomflix/static/media/logo_blue.9ebb05f3.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.aab67097.js",
+    "static/js/2.f214021f.chunk.js",
+    "static/js/main.fb5f747c.chunk.js"
+  ]
+}
