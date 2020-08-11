@@ -1,32 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-// import SearchInput from 'Components/SearchInput';
+import { withRouter } from 'react-router-dom';
+import logo from 'assets/logo_blue.png';
+
+const Logo = styled.img`
+	position: absolute;
+	top: -10px;
+	left: 3%;
+	width: 90px;
+	border-radius: 5px;
+	opacity: 0.7;
+`;
 
 const Header = styled.div`
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100px;
-	background-color: rgba(10, 20, 29, 0.7);
+	width: 100vw;
+	background-color: rgba(10, 20, 29, 0.9);
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-	@media (max-width: 1280px) {
-		width: 70px;
-	}
+	z-index: 2;
 `;
 
 const InnerBox = styled.div`
 	display: grid;
-	/* grid-template-columns: repeat(5, 1fr); */
 	grid-template-columns: repeat(4, 1fr);
-	width: 50%;
+	width: 70%;
 	border-radius: 5px;
 	background-color: #3f7293;
 	overflow: hidden;
+	margin: 1rem;
 `;
 
 const Item = styled.li`
@@ -38,27 +45,8 @@ const Item = styled.li`
 	&:not(:last-child) {
 		border-right: 1px solid rgba(0, 0, 0, 0.25);
 	}
-	&:hover {
-		background-color: #dce5ec;
-	}
-	/* &:hover:not(:last-child) {
-		background-color: #dce5ec;
-	}
-	&:first-child {
-		grid-column: 1;
-	}
-	&:nth-child(2) {
-		grid-column: 2;
-	}
-	&:nth-child(3) {
-		grid-column: 3;
-	}
-	&:last-child {
-		grid-column: 4/6;
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-	} */
+	background-color: ${(props) => (props.current ? '#dce5ec' : '#3f7293')};
+	color: ${(props) => (props.current ? '#1e272e' : '#d9dadd')};
 `;
 
 const SLink = styled(Link)`
@@ -67,30 +55,28 @@ const SLink = styled(Link)`
 	justify-content: center;
 	align-items: center;
 	padding: 0.5rem 0;
-	color: white;
-	&:hover {
-		color: #212121;
-	}
 	@media (max-width: 1280px) {
 		font-size: 1.2rem;
 	}
 `;
 
-function Navigation() {
+function Navigation({ location: { pathname } }) {
 	return (
 		<Header>
+			<Link to="/">
+				<Logo src={logo}></Logo>
+			</Link>
 			<InnerBox>
-				<Item>
+				<Item current={pathname === '/'}>
 					<SLink to="/">Home</SLink>
 				</Item>
-				<Item>
+				<Item current={pathname === '/movie'}>
 					<SLink to="/movie">Movie</SLink>
 				</Item>
-				<Item>
+				<Item current={pathname === '/tv'}>
 					<SLink to="/tv">TV</SLink>
 				</Item>
-				<Item>
-					{/* <SearchInput /> */}
+				<Item current={pathname === '/search'}>
 					<SLink to="/search">Search</SLink>
 				</Item>
 			</InnerBox>
@@ -98,4 +84,4 @@ function Navigation() {
 	);
 }
 
-export default Navigation;
+export default withRouter(Navigation);

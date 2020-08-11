@@ -8,22 +8,26 @@ const Container = styled.div`
 	margin-top: 10px;
 `;
 const Title = styled.span`
-	font-weight: 600;
+	font-weight: 550;
 	font-size: 1.2rem;
 	color: #eee;
 	text-transform: uppercase;
 `;
-
 const List = styled.ul`
-	/* display: flex; */
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	overflow: auto;
 `;
 const Item = styled.li`
 	list-style: none;
 	margin: 10px;
-	/* display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center; */
+	width: 120px;
+	height: 150px;
+	border-radius: 5px;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
 `;
 
 const Profile = styled.div`
@@ -31,14 +35,34 @@ const Profile = styled.div`
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	width: 100px;
-	height: 150px;
-	border-radius: 5px;
+	width: 100%;
+	height: 100%;
 `;
-const Name = styled.div``;
-const Character = styled.div``;
-const Key = styled.span``;
-const Value = styled.span``;
+const Name = styled.div`
+	font-size: 15px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	transition: all 0.2s ease-in-out;
+	${Item}:hover & {
+		opacity: 0;
+		transform: translate(30px, 30px);
+	}
+`;
+const Overlay = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	transition: opacity 0.2s ease-in-out;
+	${Item}:hover & {
+		opacity: 0;
+	}
+`;
 
 function Actors({ id, isMovie = false }) {
 	const [actors, setActors] = useState([]);
@@ -66,32 +90,26 @@ function Actors({ id, isMovie = false }) {
 	});
 
 	return (
-		<Container>
-			<Title>actors</Title>
-			<List>
-				{actors.map((actor, index) => (
-					<Item key={index}>
-						<Profile
-							profileUrl={
-								actor.profile_path
-									? `https://image.tmdb.org/t/p/w154${actor.profile_path}`
-									: ''
-							}></Profile>
-						<Name>
-							<Key>NAME : </Key>
-							<Value>{actor.name}</Value>
-						</Name>
-						<Character>
-							<Key>CHARACTER : </Key>
-							<Value>{actor.character}</Value>
-						</Character>
-					</Item>
-				))}
-			</List>
-		</Container>
+		actors && (
+			<Container>
+				<Title>actors</Title>
+				<List>
+					{actors.map((actor, index) => (
+						<Item key={index}>
+							<Overlay />
+							<Profile
+								profileUrl={
+									actor.profile_path
+										? `https://image.tmdb.org/t/p/w154${actor.profile_path}`
+										: ''
+								}></Profile>
+							<Name>{actor.name}</Name>
+						</Item>
+					))}
+				</List>
+			</Container>
+		)
 	);
 }
 
 export default Actors;
-
-//

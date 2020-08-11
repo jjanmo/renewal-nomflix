@@ -12,10 +12,7 @@ const GlobalStyles = createGlobalStyle`
         font-family: 'Acme', sans-serif;
         background-color : #1B374B;
         color : white;
-        padding-top : 100px;
-        @media (max-width : 1280px) {
-            padding-top : 70px;
-        }
+        padding-top : 5rem;
 	}
     a {
         text-decoration: none;

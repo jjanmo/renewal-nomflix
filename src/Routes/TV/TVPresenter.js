@@ -5,7 +5,7 @@ import Loader from 'Components/Loader';
 import Item from 'Components/Item';
 
 const Container = styled.div`
-    margin: 10px 0;
+    /* margin: 10px 0; */
 `;
 
 function TVPresenter({ isLoading, popular, topRated, onTheAir }) {

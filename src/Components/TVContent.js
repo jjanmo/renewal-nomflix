@@ -1,44 +1,113 @@
 import React from 'react';
 import styled from 'styled-components';
+import Genres from 'Components/Genres';
+import Actors from 'Components/Actors';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
-	width: 100%;
-	height: 100%;
 	display: grid;
-	grid-template-columns: repeat(10, 1fr);
+	grid-template-columns: 60% 40%;
 `;
-const Title = styled.div`
-	grid-column: 2/5;
-	grid-row: 2/4;
+const LeftBox = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	padding-left: 5rem;
+`;
+const Title = styled.h1`
+	font-size: 3rem;
+	margin: 1rem 0;
 `;
 const Classification = styled.div`
-	grid-column: 2/5;
-	grid-row: 5;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	font-size: 1.1rem;
+	margin: 1rem 0;
+`;
+const Year = styled.span``;
+const Runtime = styled.span``;
+const Rank = styled.span``;
+const Divider = styled.span`
+	margin: 0 10px;
 `;
 const Overview = styled.div`
-	grid-column: 2/5;
-	grid-row: 6;
+	font-size: 1.2rem;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 `;
-const Actors = styled.div`
-	grid-column: 2/5;
-	grid-row: 7;
-`;
-const Poster = styled.div`
-	grid-column: 7/10;
-	grid-row: 3/7;
+const Links = styled.div`
+	width: 100%;
+	margin-top: 1.5rem;
+	display: flex;
+	justify-content: left;
+	align-items: center;
 `;
 
-const Divider = styled.span``;
+const SeasonsLink = styled(Link)`
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: 1.1rem;
+	color: rgb(103, 193, 245);
+	background-color: #0e151d;
+	padding: 0.5rem 1rem;
+	border-radius: 5px;
+	letter-spacing: 1px;
+	&:hover {
+		background-color: #60b4e4;
+		color: white;
+	}
+`;
+const RightBox = styled.div`
+	height: calc(100vh - 100px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`;
+const Poster = styled.img`
+	border-radius: 5px;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+`;
 
 function TVContent({ tv }) {
+	console.log(tv);
 	return (
-		<Container>
-			<Title>{tv.name}</Title>
-			<Classification></Classification>
-			<Overview></Overview>
-			<Actors></Actors>
-			<Poster></Poster>
-		</Container>
+		<>
+			<Container>
+				<LeftBox>
+					<Title>{tv.original_name}</Title>
+					<Classification>
+						<Year>
+							{`${tv.first_air_date.slice(0, 4)} ~ ${tv.last_air_date.slice(
+								0,
+								4
+							)}`}
+							<Divider>|</Divider>
+						</Year>
+						<Runtime>
+							{tv.episode_run_time} min
+							<Divider>|</Divider>
+						</Runtime>
+						<Genres genres={tv.genres}></Genres>
+						<Rank>
+							{tv.vote_average}
+							<Divider>|</Divider>
+						</Rank>
+					</Classification>
+					<Overview>{tv.overview}</Overview>
+					<Actors id={tv.id} />
+					<Links>
+						{tv.seasons && (
+							<SeasonsLink to={`/seasons/${tv.id}`} seasons={tv.seasons}>
+								Seasons
+							</SeasonsLink>
+						)}
+					</Links>
+				</LeftBox>
+				<RightBox>
+					<Poster src={`https://image.tmdb.org/t/p/w300${tv.poster_path}`} />
+				</RightBox>
+			</Container>
+		</>
 	);
 }
 

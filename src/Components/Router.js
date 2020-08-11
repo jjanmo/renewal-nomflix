@@ -1,11 +1,12 @@
 import React from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Redirect } from 'react-router-dom';
 import Navigation from './Navigation';
 import Home from 'Routes/Home';
 import Movie from 'Routes/Movie';
 import TV from 'Routes/TV';
 import Search from 'Routes/Search';
 import Detail from 'Routes/Detail';
+import Collection from 'Routes/Collection';
 
 function Routers() {
 	return (
@@ -17,6 +18,8 @@ function Routers() {
 			<Route path="/tv" exact component={TV} />
 			<Route path="/tv/:id" component={Detail} />
 			<Route path="/search" component={Search} />
+			<Route path="/collection/:id" component={Collection} />
+			<Redirect from="*" to="/" />
 		</Router>
 	);
 }

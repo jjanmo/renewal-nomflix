@@ -33,7 +33,7 @@ function DetailPresenter({ isLoading, movie, tv }) {
 				<Background
 					backdropUrl={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
 				/>
-				<MovieContent movie={movie}></MovieContent>
+				<MovieContent movie={movie} />
 			</Container>
 		)) ||
 			(tv && (
@@ -41,7 +41,7 @@ function DetailPresenter({ isLoading, movie, tv }) {
 					<Background
 						backdropUrl={`https://image.tmdb.org/t/p/original/${tv.backdrop_path}`}
 					/>
-					<TVContent> tv={tv}</TVContent>
+					<TVContent tv={tv} />
 				</Container>
 			))
 	);
