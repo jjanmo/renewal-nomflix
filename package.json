@@ -18,7 +18,7 @@
         "styled-components": "^5.1.1",
         "styled-reset": "^4.2.1"
     },
-    "homepage": "https://jjanmo.github.io/renewal-nomflix",
+    "homepage": "https://gracious-saha-987b9e.netlify.app/",
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
