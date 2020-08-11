@@ -3,84 +3,97 @@ import SearchPresenter from './SearchPresenter';
 import { movieApi, tvApi } from 'api';
 
 export default class extends React.Component {
-	state = {
-		isLoading: false,
-		error: null,
-		searchTerm: '',
-		movies: [],
-		TVs: [],
-	};
+    state = {
+        isLoading: false,
+        isSubmitted: false,
+        error: null,
+        searchTerm: '',
+        movies: [],
+        TVs: [],
+    };
 
-	fetchData = async (term) => {
-		console.log(term);
-		this.setState({ isLoading: true });
-		try {
-			const {
-				data: { results: movies },
-			} = await movieApi.search(term);
-			const {
-				data: { results: TVs },
-			} = await tvApi.search(term);
-			this.setState({
-				movies,
-				TVs,
-			});
-			console.log(movies, TVs);
-		} catch {
-			this.setState({
-				error: 'Can not find data...',
-			});
-		} finally {
-			this.setState({
-				isLoading: false,
-			});
-		}
-	};
+    fetchData = async (term) => {
+        console.log(term);
+        this.setState({ isLoading: true });
+        try {
+            const {
+                data: { results: movies },
+            } = await movieApi.search(term);
+            const {
+                data: { results: TVs },
+            } = await tvApi.search(term);
+            this.setState({
+                movies,
+                TVs,
+            });
+            console.log(movies, TVs);
+        } catch {
+            this.setState({
+                error: 'Can not find data...',
+            });
+        } finally {
+            this.setState({
+                isLoading: false,
+            });
+        }
+    };
 
-	handleFocus = (e) => {
-		e.target.placeholder = '';
-	};
+    handleFocus = (e) => {
+        const { searchTerm } = this.state;
+        if (searchTerm) {
+            this.setState({
+                searchTerm: '',
+            });
+        } else {
+            e.target.placeholder = '';
+        }
+    };
 
-	handleBlur = (e) => {
-		const {
-			target: { value },
-		} = e;
-		if (!value) {
-			e.target.placeholder = 'search';
-		}
-	};
+    handleBlur = (e) => {
+        const {
+            target: { value },
+        } = e;
+        if (!value) {
+            e.target.placeholder = 'search';
+        }
+    };
 
-	handleChange = (e) => {
-		const {
-			target: { value },
-		} = e;
-		this.setState({
-			searchTerm: value,
-		});
-	};
+    handleChange = (e) => {
+        const {
+            target: { value },
+        } = e;
+        this.setState({
+            searchTerm: value,
+            isSubmitted: false,
+        });
+    };
 
-	handleSubmit = (e) => {
-		e.preventDefault();
-		const { searchTerm } = this.state;
-		if (searchTerm !== '') {
-			this.fetchData(searchTerm);
-		}
-	};
+    handleSubmit = (e) => {
+        e.preventDefault();
+        const { searchTerm } = this.state;
+        if (searchTerm !== '') {
+            this.fetchData(searchTerm);
+        }
+        this.setState({
+            isSubmitted: true,
+        });
+    };
 
-	render() {
-		const { isLoading, searchTerm, movies, TVs } = this.state;
-		console.log(movies, TVs);
-		return (
-			<SearchPresenter
-				handleFocus={this.handleFocus}
-				handleBlur={this.handleBlur}
-				handleChange={this.handleChange}
-				handleSubmit={this.handleSubmit}
-				isLoading={isLoading}
-				searchTerm={searchTerm}
-				movies={movies}
-				TVs={TVs}
-			/>
-		);
-	}
+    render() {
+        const { isLoading, searchTerm, movies, TVs, isSubmitted } = this.state;
+        console.log(movies, TVs);
+        return (
+            <SearchPresenter
+                handleFocus={this.handleFocus}
+                handleBlur={this.handleBlur}
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                isLoading={isLoading}
+                isSubmitted={isSubmitted}
+                searchTerm={searchTerm}
+                movies={movies}
+                TVs={TVs}
+            />
+        );
+    }
 }

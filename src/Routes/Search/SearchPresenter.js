@@ -19,7 +19,6 @@ const Input = styled.input`
     border: 1px solid rgba(0, 0, 0, 0.3);
     text-decoration: none;
     outline: none;
-    /* margin-right: 0.7rem; */
     color: #fff;
     padding: 0.5rem 2rem;
     font-size: 1.5rem;
@@ -48,10 +47,42 @@ const Button = styled.button`
         color: rgba(255, 255, 255, 0.8);
     }
 `;
-
 const Container = styled.div``;
+const MessageContainer = styled.div`
+    width: 40%;
+    height: 200px;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    /* border-radius: 10px; */
+    background-color: #267ba2;
+    position: relative;
+    font-size: 2rem;
+    border-top-right-radius: 3rem;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 6rem;
+    border-bottom-right-radius: 3rem;
+`;
+const Message = styled.div`
+    font-family: Arial, helvetica, sans-serif;
+    text-align: center;
+    padding-top: 1rem;
+`;
+const SearchTerm = styled.span`
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 600;
+`;
 
-function SearchPresenter({ handleFocus, handleBlur, handleChange, handleSubmit, isLoading, searchTerm, movies, TVs }) {
+function SearchPresenter({
+    handleFocus,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    isLoading,
+    searchTerm,
+    movies,
+    TVs,
+    isSubmitted,
+}) {
     return (
         <>
             <Form onSubmit={handleSubmit}>
@@ -64,7 +95,7 @@ function SearchPresenter({ handleFocus, handleBlur, handleChange, handleSubmit, 
                     maxLength="40"
                 />
                 <Button>
-                    <FontAwesomeIcon icon={faSearch} size="lg" />
+                    <FontAwesomeIcon icon={faSearch} size="2x" />
                 </Button>
             </Form>
             {isLoading ? (
@@ -100,6 +131,13 @@ function SearchPresenter({ handleFocus, handleBlur, handleChange, handleSubmit, 
                                 />
                             ))}
                         </Section>
+                    )}
+                    {searchTerm && movies.length === 0 && TVs.length === 0 && isSubmitted && (
+                        <MessageContainer>
+                            <Message>
+                                No results found for <SearchTerm>{searchTerm}</SearchTerm>
+                            </Message>
+                        </MessageContainer>
                     )}
                 </Container>
             )}
