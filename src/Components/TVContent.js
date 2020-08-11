@@ -4,6 +4,7 @@ import Genres from 'Components/Genres';
 import Actors from 'Components/Actors';
 import { Link } from 'react-router-dom';
 import Videos from 'Components/Videos';
+import Rank from 'Components/Rank';
 
 const Container = styled.div`
     display: grid;
@@ -28,7 +29,6 @@ const Classification = styled.div`
 `;
 const Year = styled.span``;
 const Runtime = styled.span``;
-const Rank = styled.span``;
 const Divider = styled.span`
     margin: 0 10px;
 `;
@@ -104,10 +104,8 @@ function TVContent({ tv, imdbId }) {
                             <Divider>|</Divider>
                         </Runtime>
                         <Genres genres={tv.genres}></Genres>
-                        <Rank>
-                            {tv.vote_average}
-                            <Divider>|</Divider>
-                        </Rank>
+                        <Rank score={tv.vote_average} totalVotes={tv.vote_count} />
+                        <Divider>|</Divider>
                         <IMDbLink href={`https://www.imdb.com/title/${imdbId}`} target="_blank">
                             <IMDbLogo src="https://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" />
                         </IMDbLink>

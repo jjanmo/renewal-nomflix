@@ -4,6 +4,7 @@ import Genres from 'Components/Genres';
 import Actors from 'Components/Actors';
 import { Link } from 'react-router-dom';
 import Videos from 'Components/Videos';
+import Rank from 'Components/Rank';
 
 const Container = styled.div`
     display: grid;
@@ -31,7 +32,6 @@ const Adult = styled.span`
     color: '#c0392b';
 `;
 const Runtime = styled.span``;
-const Rank = styled.span``;
 const Divider = styled.span`
     margin: 0 10px;
 `;
@@ -60,6 +60,7 @@ const CollectionLink = styled(Link)`
     background-color: #0e151d;
     padding: 0.5rem 1rem;
     border-radius: 5px;
+    margin-bottom: 1rem;
     &:hover {
         background-color: #60b4e4;
         color: white;
@@ -111,10 +112,8 @@ function MovieContent({ movie }) {
                             <Divider>|</Divider>
                         </Runtime>
                         <Genres genres={movie.genres}></Genres>
-                        <Rank>
-                            {movie.vote_average}
-                            <Divider>|</Divider>
-                        </Rank>
+                        <Rank score={movie.vote_average} totalVotes={movie.vote_count} />
+                        <Divider>|</Divider>
                         <IMDbLink href={`https://www.imdb.com/title/${movie.imdb_id}`} target="_blank">
                             <IMDbLogo src="https://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" />
                         </IMDbLink>

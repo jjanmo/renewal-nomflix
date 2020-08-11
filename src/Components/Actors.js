@@ -16,9 +16,7 @@ const Title = styled.span`
 const List = styled.ul`
     display: flex;
     justify-content: left;
-    /* align-items: center; */
     overflow: auto;
-    /* width: 100%; */
 `;
 const Item = styled.li`
     list-style: none;
@@ -75,29 +73,27 @@ const Overlay = styled.div`
 
 function Actors({ id, isMovie = false }) {
     const [actors, setActors] = useState([]);
-    const fetchData = async () => {
-        try {
-            if (isMovie) {
-                const {
-                    data: { cast },
-                } = await movieApi.getActors(id);
-                console.log(cast);
-                setActors(cast.slice(0, 5));
-            } else {
-                const {
-                    data: { cast },
-                } = await tvApi.getActors(id);
-                console.log(cast);
-                setActors(cast.slice(0, 5));
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    };
 
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (isMovie) {
+                    const {
+                        data: { cast },
+                    } = await movieApi.getActors(id);
+                    setActors(cast.slice(0, 5));
+                } else {
+                    const {
+                        data: { cast },
+                    } = await tvApi.getActors(id);
+                    setActors(cast.slice(0, 5));
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        };
         fetchData();
-    }, [id]);
+    }, [id, isMovie]);
 
     return (
         actors &&
