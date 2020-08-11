@@ -21,8 +21,8 @@ const Poster = styled.div`
         height: 200px;
     }
     @media screen and (min-width: 1281px) {
-        width: 200px;
-        height: 300px;
+        width: 170px;
+        height: 250px;
     }
 `;
 const Title = styled.span`

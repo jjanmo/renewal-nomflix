@@ -8,7 +8,7 @@ const GlobalStyles = createGlobalStyle`
             font-size : 16px;
         }
         @media screen and (min-width : 1281px)  {
-            font-size : 20px;
+            font-size : 19px;
         }
     }
     *{
