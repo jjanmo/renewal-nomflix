@@ -78,6 +78,7 @@ const Poster = styled.img`
 `;
 
 function MovieContent({ movie }) {
+	console.log(movie);
 	return (
 		<>
 			<Container>
