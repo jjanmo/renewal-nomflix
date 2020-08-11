@@ -32,8 +32,8 @@ const Item = styled.li`
         height: 150px;
     }
     @media screen and (min-width: 1281px) {
-        width: 200px;
-        height: 250px;
+        width: 180px;
+        height: 220px;
     }
 `;
 
