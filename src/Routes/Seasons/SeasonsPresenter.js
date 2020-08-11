@@ -39,8 +39,7 @@ const List = styled.ul`
     display: flex;
     margin: 1rem 0 0;
     width: 90%;
-    overflow-y: auto;
-    overflow-x: visible;
+    overflow: auto;
     padding: 1.5rem 0;
 `;
 const SLink = styled(Link)`
@@ -80,22 +79,13 @@ const Row = styled.div`
 const Year = styled.div``;
 const Episode = styled.div``;
 const Item = styled.li`
-	list-style: none;
-	position: relative;
-	margin: 0 1rem;
-	width: 200px;
-	height: 300px;
-	border-radius: 5px;
-	overflow: hidden;
-	transition: 0.3s all ease-in-out;
-	/* &:hover ${Year} {
-		opacity: 0;
-		bottom: -10px;
-	}
-	&:hover ${Episode} {
-		opacity: 0;
-		bottom: -10px;
-	} */
+    list-style: none;
+    position: relative;
+    margin: 0 1rem;
+    width: 200px;
+    height: 300px;
+    border-radius: 5px;
+    overflow: hidden;
 `;
 
 function SeasonsPresenter({ isLoading, data }) {

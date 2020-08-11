@@ -16,8 +16,9 @@ const Title = styled.span`
 const List = styled.ul`
     display: flex;
     justify-content: left;
-    align-items: center;
+    /* align-items: center; */
     overflow: auto;
+    /* width: 100%; */
 `;
 const Item = styled.li`
     list-style: none;
@@ -80,12 +81,14 @@ function Actors({ id, isMovie = false }) {
                 const {
                     data: { cast },
                 } = await movieApi.getActors(id);
-                setActors(cast.slice(0, 4));
+                console.log(cast);
+                setActors(cast.slice(0, 5));
             } else {
                 const {
                     data: { cast },
                 } = await tvApi.getActors(id);
-                setActors(cast.slice(0, 4));
+                console.log(cast);
+                setActors(cast.slice(0, 5));
             }
         } catch (e) {
             console.log(e);
