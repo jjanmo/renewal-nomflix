@@ -23,8 +23,6 @@ const Background = styled.div`
 `;
 
 function DetailPresenter({ isLoading, movie, tv }) {
-	console.log(isLoading, movie, tv);
-
 	return isLoading ? (
 		<Loader />
 	) : (

@@ -3,24 +3,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Stars from 'Components/Stars';
 
-const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-`;
 const PosterBox = styled.div`
 	position: relative;
 	margin: 10px;
-`;
-const Overlay = styled.div`
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
 `;
 const Poster = styled.div`
 	border-radius: 5px;
@@ -30,6 +15,10 @@ const Poster = styled.div`
 	background-size: cover;
 	width: 150px;
 	height: 200px;
+	opacity: 0.3;
+	filter: blur(0.5px);
+	transition: 0.3s all ease-in-out;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 `;
 const Title = styled.span`
 	display: inline-block;
@@ -38,16 +27,43 @@ const Title = styled.span`
 	top: 35%;
 	word-break: break-word;
 	text-align: center;
+	font-size: 1.2rem;
+	transition: 0.3s top ease-in-out, 0.3s opacity ease-in-out 0.2s;
 `;
 const ReleasedYear = styled.span`
 	position: absolute;
 	bottom: 20px;
 	left: 20px;
+	transition: 0.3s opacity ease-in-out;
 `;
 const Rating = styled.span`
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
+	transition: 0.3s opacity ease-in-out;
+`;
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	margin: 0.5rem 0;
+	&:hover ${Poster} {
+		opacity: 1;
+		filter: blur(0);
+		transform: scale(1.06);
+	}
+	&:hover ${Title} {
+		top: -7%;
+		opacity: 0;
+	}
+	&:hover ${Rating} {
+		opacity: 0;
+	}
+	&:hover ${ReleasedYear} {
+		opacity: 0;
+	}
 `;
 
 function Item({ id, title, poster, rating, year, isMovie = false }) {
@@ -55,7 +71,6 @@ function Item({ id, title, poster, rating, year, isMovie = false }) {
 		<Link to={isMovie ? `/movie/${id}` : `/tv/${id}`}>
 			<Container>
 				<PosterBox>
-					<Overlay />
 					<Poster
 						posterUrl={
 							poster
