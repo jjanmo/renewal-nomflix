@@ -7,6 +7,7 @@ import TV from 'Routes/TV';
 import Search from 'Routes/Search';
 import Detail from 'Routes/Detail';
 import Collection from 'Routes/Collection';
+import Seasons from 'Routes/Seasons';
 
 function Routers() {
 	return (
@@ -19,6 +20,8 @@ function Routers() {
 			<Route path="/tv/:id" component={Detail} />
 			<Route path="/search" component={Search} />
 			<Route path="/collection/:id" component={Collection} />
+			<Route path="/seasons/:id" exact component={Seasons} />
+			{/* <Route path="/seasons/:id/:number" component={SeasonDetail} /> */}
 			<Redirect from="*" to="/" />
 		</Router>
 	);

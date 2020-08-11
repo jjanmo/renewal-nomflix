@@ -28,6 +28,7 @@ const Background = styled.div`
 const Title = styled.h1`
 	font-size: 3rem;
 	margin: 1rem 0;
+	z-index: 1;
 `;
 const Overview = styled.div`
 	font-size: 1.2rem;
@@ -37,10 +38,18 @@ const Overview = styled.div`
 `;
 const List = styled.ul`
 	display: flex;
-	margin: 3rem 0;
+	margin: 1rem 0 0;
 	width: 90%;
 	overflow-y: auto;
 	overflow-x: visible;
+	padding: 1.5rem 0;
+`;
+const SLink = styled(Link)`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
 `;
 const Poster = styled.div`
 	background-image: url(${(props) => props.posterUrl});
@@ -53,80 +62,80 @@ const Poster = styled.div`
 	width: 100%;
 	height: 100%;
 `;
+const TopBox = styled.div`
+	background-color: rgba(0, 0, 0, 0.3);
+	padding: 0.5rem;
+	width: 90%;
+	margin-bottom: 0.5rem;
+	border-radius: 5px;
+`;
 const Name = styled.span`
-	position: absolute;
 	font-size: 1.3rem;
-	top: 10px;
-	left: 50%;
-	transform: translateX(-50%);
-	transition: 0.4s all ease-in-out;
+	margin-bottom: 0.2rem;
 `;
-const Year = styled.span`
-	position: absolute;
-	bottom: 10px;
-	left: 10px;
-	transition: 0.4s all ease-in-out;
-	text-transform: uppercase;
+const Row = styled.div`
+	width: 90%;
+	/* margin-bottom: 0.5rem; */
+	display: flex;
+	justify-content: space-between;
 `;
-const Rating = styled.span`
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-	transition: 0.4s all ease-in-out;
-`;
+const Year = styled.div``;
+const Episode = styled.div``;
 const Item = styled.li`
 	list-style: none;
 	position: relative;
 	margin: 0 1rem;
-	width: 350px;
-	height: 250px;
+	width: 200px;
+	height: 300px;
 	border-radius: 5px;
 	overflow: hidden;
 	transition: 0.3s all ease-in-out;
-	&:hover ${Name} {
+	/* &:hover ${Year} {
 		opacity: 0;
+		bottom: -10px;
 	}
-	&:hover ${Year} {
+	&:hover ${Episode} {
 		opacity: 0;
-	}
-	&:hover ${Rating} {
-		opacity: 0;
-	}
+		bottom: -10px;
+	} */
 `;
 
-function CollectionPresenter({ isLoading, collection }) {
+function SeasonsPresenter({ isLoading, data }) {
+	console.log(isLoading, data);
 	return isLoading ? (
 		<Loader />
 	) : (
 		<Container>
 			<Background
-				backdropUrl={`https://image.tmdb.org/t/p/w1280/${collection.backdrop_path}`}
+				backdropUrl={`https://image.tmdb.org/t/p/w1280/${data.backdrop_path}`}
 			/>
-			<Title>{collection.name}</Title>
-			<Overview>{collection.overview}</Overview>
+			<Title>{data.name}</Title>
+			<Overview>{data.overview}</Overview>
 			<List>
-				{collection.parts &&
-					collection.parts.map((movie, index) => (
-						<Link to={`/movie/${movie.id}`} key={index}>
+				{data.seasons &&
+					data.seasons.map((season, index) => (
+						<SLink
+							to={`/seasons/${data.id}/${season.season_number}`}
+							key={index}>
+							<TopBox>
+								<Name>{season.name}</Name>
+								<Row>
+									<Year>{season.air_date}</Year>
+									<Episode>Episode : {season.episode_count}</Episode>
+								</Row>
+							</TopBox>
 							<Item>
 								<Poster
-									posterUrl={`https://image.tmdb.org/t/p/w400${
-										movie.backdrop_path || movie.poster_path
+									posterUrl={`https://image.tmdb.org/t/p/w200${
+										season.poster_path || data.poster_path
 									}`}
 								/>
-								<Name>{movie.title}</Name>
-								<Year>{movie.release_date || 'not released'}</Year>
-								<Rating>
-									<Stars
-										full={Math.floor(movie.vote_average / 2)}
-										isNotHalf={Number.isInteger(movie.vote_average)}
-									/>
-								</Rating>
 							</Item>
-						</Link>
+						</SLink>
 					))}
 			</List>
 		</Container>
 	);
+	return null;
 }
-export default CollectionPresenter;
+export default SeasonsPresenter;

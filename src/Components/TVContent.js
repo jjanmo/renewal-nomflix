@@ -50,7 +50,6 @@ const SeasonsLink = styled(Link)`
 	background-color: #0e151d;
 	padding: 0.5rem 1rem;
 	border-radius: 5px;
-	letter-spacing: 1px;
 	&:hover {
 		background-color: #60b4e4;
 		color: white;

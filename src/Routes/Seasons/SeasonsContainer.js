@@ -1,12 +1,12 @@
 import React from 'react';
-import CollectionPresenter from './CollectionPreseneter';
-import { movieApi } from 'api';
+import SeasonsPresenter from './SeasonsPresenter';
+import { tvApi } from 'api';
 
 export default class extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			collection: [],
+			data: {},
 			isLoading: true,
 			error: null,
 		};
@@ -20,9 +20,9 @@ export default class extends React.Component {
 		} = this.props;
 
 		try {
-			const { data: collection } = await movieApi.getCollection(id);
+			const { data } = await tvApi.getDetail(id);
 			this.setState({
-				collection,
+				data,
 			});
 		} catch {
 			this.setState({
@@ -40,9 +40,7 @@ export default class extends React.Component {
 	}
 
 	render() {
-		const { isLoading, collection } = this.state;
-		return (
-			<CollectionPresenter isLoading={isLoading} collection={collection} />
-		);
+		const { isLoading, data } = this.state;
+		return <SeasonsPresenter isLoading={isLoading} data={data} />;
 	}
 }
