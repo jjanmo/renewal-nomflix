@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Genres from 'Components/Genres';
 import Actors from 'Components/Actors';
 import { Link } from 'react-router-dom';
+import Videos from 'Components/Videos';
 
 const Container = styled.div`
     display: grid;
@@ -56,6 +57,7 @@ const SeasonsLink = styled(Link)`
     background-color: #0e151d;
     padding: 0.5rem 1rem;
     border-radius: 5px;
+    margin-bottom: 1rem;
     &:hover {
         background-color: #60b4e4;
         color: white;
@@ -86,6 +88,7 @@ const Poster = styled.div`
 `;
 
 function TVContent({ tv, imdbId }) {
+    console.log(tv);
     return (
         <>
             <Container>
@@ -118,6 +121,7 @@ function TVContent({ tv, imdbId }) {
                             </SeasonsLink>
                         )}
                     </Links>
+                    <Videos videos={tv.videos.results} />
                 </LeftBox>
                 <RightBox>
                     <Poster posterUrl={`https://image.tmdb.org/t/p/w400${tv.poster_path}`} />
