@@ -61,7 +61,8 @@ const Overlay = styled.div`
 	transition: opacity 0.4s ease-in-out;
 	background-color: rgba(0, 0, 0, 0.4);
 	${Item}:hover & {
-		background-color: transparent;
+		background-color: ${(props) =>
+			props.isProfile ? 'transparent' : 'rgba(0, 0, 0, 0.4)'};
 	}
 `;
 
