@@ -45,10 +45,11 @@ const Name = styled.div`
 	left: 50%;
 	transform: translate(-50%, -50%);
 	text-align: center;
-	transition: all 0.2s ease-in-out;
+	transition: all 0.4s ease-in-out;
+	opacity: 1;
 	${Item}:hover & {
+		transform: translate(50%, 50%);
 		opacity: 0;
-		transform: translate(30px, 30px);
 	}
 `;
 const Overlay = styled.div`
@@ -57,10 +58,10 @@ const Overlay = styled.div`
 	left: 0;
 	width: 100%;
 	height: 100%;
+	transition: opacity 0.4s ease-in-out;
 	background-color: rgba(0, 0, 0, 0.4);
-	transition: opacity 0.2s ease-in-out;
 	${Item}:hover & {
-		opacity: 0;
+		background-color: transparent;
 	}
 `;
 
@@ -96,7 +97,7 @@ function Actors({ id, isMovie = false }) {
 				<List>
 					{actors.map((actor, index) => (
 						<Item key={index}>
-							<Overlay />
+							<Overlay isProfile={!!actor.profile_path} />
 							<Profile
 								profileUrl={
 									actor.profile_path
