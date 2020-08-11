@@ -13,11 +13,11 @@ const Image = styled.div`
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    @media screen and (max-width: 1280px) {
+    @media (max-width: 1440px) {
         width: 200px;
         height: 200px;
     }
-    @media screen and (min-width: 1281px) {
+    @media (min-width: 1441px) {
         width: 300px;
         height: 300px;
     }
