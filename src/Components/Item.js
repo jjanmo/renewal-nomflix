@@ -16,7 +16,6 @@ const Poster = styled.div`
 	width: 150px;
 	height: 200px;
 	opacity: 0.3;
-	filter: blur(0.5px);
 	transition: 0.3s all ease-in-out;
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 `;
@@ -51,7 +50,6 @@ const Container = styled.div`
 	margin: 0.5rem 0;
 	&:hover ${Poster} {
 		opacity: 1;
-		filter: blur(0);
 		transform: scale(1.06);
 	}
 	&:hover ${Title} {

@@ -87,7 +87,7 @@ function Actors({ id, isMovie = false }) {
 
 	useEffect(() => {
 		fetchData();
-	});
+	}, []);
 
 	return (
 		actors && (

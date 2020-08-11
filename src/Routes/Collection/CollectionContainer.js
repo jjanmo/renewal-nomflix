@@ -1,60 +1,53 @@
 import React from 'react';
 import CollectionPresenter from './CollectionPreseneter';
-export default () => <CollectionPresenter />;
+import { movieApi } from 'api';
 
-// import React, { useState, useEffect } from 'react';
-// import { Link, withRouter, Redirect } from 'react-router-dom';
-// import styled from 'styled-components';
-// import { movieApi } from 'api';
-// import Item from 'Components/Item';
+export default class extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			collection: [],
+			isLoading: true,
+			error: null,
+		};
+	}
 
-// const Container = styled.div``;
-// const Title = styled.h2``;
-// const Overview = styled.div;
-// const List = styled.ul``;
-// const Item = styled.li``;
+	fetchData = async () => {
+		const {
+			match: {
+				params: { id },
+			},
+		} = this.props;
 
-// function Collection({ id, match, history }) {
-// 	console.log('col', match);
-// 	const [collection, setCollection] = useState([]);
+		try {
+			const { data: collection } = await movieApi.getCollection(id);
+			// const sortedCollection =
+			// 	collection &&
+			// 	collection.overview.parts.sort(
+			// 		(a, b) => a.release_date.slice(0, 4) - b.release_date.slice(0, 4)
+			// 	);
+			this.setState({
+				collection,
+			});
+		} catch {
+			this.setState({
+				error: 'Can not find data...',
+			});
+		} finally {
+			this.setState({
+				isLoading: false,
+			});
+		}
+	};
 
-// 	const fetchData = async () => {
-// 		try {
-// 			const { data: collection } = await movieApi.getCollection(id);
-// 			setCollection(collection);
-// 		} catch (e) {
-// 			console.log(e);
-// 		}
-// 	};
+	componentDidMount() {
+		this.fetchData();
+	}
 
-// 	const movePage = (id) => {
-// 		console.log('click');
-// 		history.replace(`/movie/${id}`);
-// 	};
-// 	useEffect(() => {
-// 		fetchData();
-// 	}, []);
-
-// 	return (
-// 		<Container>
-// 			<Title>{collection.name}</Title>
-// 			<List>
-// 				{collection.parts &&
-// 					collection.parts.map((movie) => (
-// 						<Item
-// 							onClick={() => movePage(movie.id)}
-// 							id={movie.id}
-// 							title={movie.title}
-// 							poster={movie.poster_path}
-// 							rating={movie.vote_average}
-// 							year={movie.release_date && movie.release_date.slice(0, 4)}
-// 							isMovie={true}>
-// 							{movie.title}
-// 						</Item>
-// 					))}
-// 			</List>
-// 		</Container>
-// 	);
-// }
-
-// export default withRouter(Collection);
+	render() {
+		const { isLoading, collection } = this.state;
+		return (
+			<CollectionPresenter isLoading={isLoading} collection={collection} />
+		);
+	}
+}

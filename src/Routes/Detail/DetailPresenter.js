@@ -17,7 +17,7 @@ const Background = styled.div`
 	left: 0;
 	width: 100%;
 	height: 100%;
-	filter: blur(5px);
+	filter: blur(4px);
 	z-index: -1;
 	opacity: 0.6;
 `;
@@ -29,7 +29,7 @@ function DetailPresenter({ isLoading, movie, tv }) {
 		(movie && (
 			<Container>
 				<Background
-					backdropUrl={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+					backdropUrl={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
 				/>
 				<MovieContent movie={movie} />
 			</Container>
@@ -37,7 +37,7 @@ function DetailPresenter({ isLoading, movie, tv }) {
 			(tv && (
 				<Container>
 					<Background
-						backdropUrl={`https://image.tmdb.org/t/p/original/${tv.backdrop_path}`}
+						backdropUrl={`https://image.tmdb.org/t/p/w1280/${tv.backdrop_path}`}
 					/>
 					<TVContent tv={tv} />
 				</Container>
