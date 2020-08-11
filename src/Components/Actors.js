@@ -109,7 +109,11 @@ function Actors({ id, isMovie = false }) {
                         <Item key={index}>
                             <Overlay isProfile={!!actor.profile_path} />
                             <Profile
-                                profileUrl={actor.profile_path ? `https://image.tmdb.org/t/p/w200${actor.profile_path}` : ''}
+                                profileUrl={
+                                    actor.profile_path
+                                        ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
+                                        : require('../assets/no_poster.png')
+                                }
                             ></Profile>
                             <Name>{actor.name}</Name>
                         </Item>
