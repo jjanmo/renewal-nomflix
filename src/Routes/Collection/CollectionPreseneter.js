@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import Stars from 'Components/Stars';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const Container = styled.div`
     padding: 0 5rem;
@@ -111,9 +112,17 @@ const Button = styled.button`
 
 function CollectionPresenter({ isLoading, collection, handleClick }) {
     return isLoading ? (
-        <Loader />
+        <>
+            <Helmet>
+                <title>Loading | Nomflix</title>
+            </Helmet>
+            <Loader />
+        </>
     ) : (
         <Container>
+            <Helmet>
+                <title>{collection.name} | Nomflix</title>
+            </Helmet>
             <Background backdropUrl={`https://image.tmdb.org/t/p/w1280/${collection.backdrop_path}`} />
             <Title>
                 {collection.name} <Button onClick={handleClick}>back</Button>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Loader from 'Components/Loader';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 
 const ActorContainer = styled.div`
     width: 60%;
@@ -98,10 +99,18 @@ const Button = styled.button`
 
 function ActorPresenter({ isLoading, actor, handleClick }) {
     return isLoading ? (
-        <Loader />
+        <>
+            <Helmet>
+                <title>Loading | Nomflix</title>
+            </Helmet>
+            <Loader />
+        </>
     ) : (
         actor && (
             <>
+                <Helmet>
+                    <title>{actor.name} | Nomflix</title>
+                </Helmet>
                 <ActorContainer>
                     <Button onClick={handleClick}>X</Button>
                     <LeftBox>

@@ -3,14 +3,23 @@ import Section from 'Components/Section';
 import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import Item from 'Components/Item';
+import { Helmet } from 'react-helmet';
 
 const Container = styled.div``;
 
 function HomePresenter({ isLoading, nowPlaying, upcoming, airingToday }) {
     return isLoading ? (
-        <Loader />
+        <>
+            <Helmet>
+                <title>Home | Nomflix</title>
+            </Helmet>
+            <Loader />
+        </>
     ) : (
         <Container>
+            <Helmet>
+                <title>Home | Nomflix</title>
+            </Helmet>
             {nowPlaying && nowPlaying.length > 0 && (
                 <Section title="Now Playing Movies">
                     {nowPlaying.map((movie) => (

@@ -33,7 +33,7 @@ function Videos({ videos }) {
                 <List>
                     {videos.map((video, index) => (
                         <Item key={index}>
-                            <Name>{video.name && `${video.name.substring(0, 30)}...`}</Name>
+                            <Name>{video.name && `${video.name.length > 35 ? video.name.substring(0, 35) : video.name}...`}</Name>
                             <Iframe src={`https://youtube.com/embed/${video.key}`} width="400" height="250" />
                         </Item>
                     ))}

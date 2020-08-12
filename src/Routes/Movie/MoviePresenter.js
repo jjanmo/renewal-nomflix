@@ -3,12 +3,18 @@ import Section from 'Components/Section';
 import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import Item from 'Components/Item';
+import { Helmet } from 'react-helmet';
 
 const Container = styled.div``;
 
 function MoviePresenter({ isLoading, popular, topRated }) {
     return isLoading ? (
-        <Loader />
+        <>
+            <Loader />
+            <Helmet>
+                <title>Movie | Nomflix</title>
+            </Helmet>
+        </>
     ) : (
         <Container>
             {popular && popular.length > 0 && (

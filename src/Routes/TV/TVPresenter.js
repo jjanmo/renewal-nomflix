@@ -3,12 +3,18 @@ import Section from 'Components/Section';
 import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import Item from 'Components/Item';
+import { Helmet } from 'react-helmet';
 
 const Container = styled.div``;
 
 function TVPresenter({ isLoading, popular, topRated, onTheAir }) {
     return isLoading ? (
-        <Loader />
+        <>
+            <Loader />
+            <Helmet>
+                <title>TV | Nomflix</title>
+            </Helmet>
+        </>
     ) : (
         <Container>
             {popular && popular.length > 0 && (

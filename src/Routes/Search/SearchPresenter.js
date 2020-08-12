@@ -5,6 +5,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Loader from 'Components/Loader';
 import Section from 'Components/Section';
 import Item from 'Components/Item';
+import { Helmet } from 'react-helmet';
 
 const Form = styled.form`
     width: 100%;
@@ -96,9 +97,17 @@ function SearchPresenter({
                 </Button>
             </Form>
             {isLoading ? (
-                <Loader />
+                <>
+                    <Loader />
+                    <Helmet>
+                        <title>Loading | Nomflix</title>
+                    </Helmet>
+                </>
             ) : (
                 <Container>
+                    <Helmet>
+                        <title>{isSubmitted ? `${searchTerm}` : 'Search'} | Nomflix</title>
+                    </Helmet>
                     {movies && movies.length > 0 && (
                         <Section title="Movies">
                             {movies.map((movie) => (

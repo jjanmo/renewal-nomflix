@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const Container = styled.div`
     display: flex;
@@ -110,9 +111,17 @@ const Button = styled.button`
 
 function SeasonsPresenter({ isLoading, data, handleClick }) {
     return isLoading ? (
-        <Loader />
+        <>
+            <Helmet>
+                <title>Loading | Nomflix</title>
+            </Helmet>
+            <Loader />
+        </>
     ) : (
         <Container>
+            <Helmet>
+                <title>{data.name} | Nomflix</title>
+            </Helmet>
             <Background backdropUrl={`https://image.tmdb.org/t/p/w1280/${data.backdrop_path}`} />
             <Title>
                 {data.name}

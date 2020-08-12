@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import MovieContent from 'Components/MovieContent';
 import TVContent from 'Components/TVContent';
+import { Helmet } from 'react-helmet';
 
 const Container = styled.div`
     width: 100%;
@@ -24,16 +25,27 @@ const Background = styled.div`
 
 function DetailPresenter({ isLoading, movie, tv, imdbId }) {
     return isLoading ? (
-        <Loader />
+        <>
+            <Loader />
+            <Helmet>
+                <title>Loading | Nomflix</title>
+            </Helmet>
+        </>
     ) : (
         (movie && (
             <Container>
+                <Helmet>
+                    <title>{movie.title} | Nomflix</title>
+                </Helmet>
                 <Background backdropUrl={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`} />
                 <MovieContent movie={movie} />
             </Container>
         )) ||
             (tv && (
                 <Container>
+                    <Helmet>
+                        <title>{tv.name} | Nomflix</title>
+                    </Helmet>
                     <Background backdropUrl={`https://image.tmdb.org/t/p/w1280/${tv.backdrop_path}`} />
                     <TVContent tv={tv} imdbId={imdbId} />
                 </Container>
