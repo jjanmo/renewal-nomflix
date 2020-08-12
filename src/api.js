@@ -25,7 +25,7 @@ export const movieApi = {
                 append_to_response: 'videos,images',
             },
         }),
-    getActors: (id) => api.get(`/movie/${id}/credits`),
+    getCast: (id) => api.get(`/movie/${id}/credits`),
     getCollection: (id) => api.get(`/collection/${id}`),
 };
 
@@ -46,6 +46,15 @@ export const tvApi = {
                 append_to_response: 'videos,images',
             },
         }),
-    getActors: (id) => api.get(`/tv/${id}/credits`),
+    getCast: (id) => api.get(`/tv/${id}/credits`),
     getExternalId: (id) => api.get(`/tv/${id}/external_ids`),
+};
+
+export const commonApi = {
+    getActor: (id) =>
+        api.get(`/person/${id}`, {
+            params: {
+                append_to_response: 'videos,images',
+            },
+        }),
 };

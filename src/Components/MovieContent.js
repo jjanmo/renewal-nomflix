@@ -18,7 +18,32 @@ const LeftBox = styled.div`
 `;
 const Title = styled.h1`
     font-size: 3.5rem;
-    margin: 1rem 0;
+    margin: 1rem 0 1.5rem;
+`;
+const SubTitle = styled.span`
+    font-size: 2rem;
+    color: #eee;
+    margin-left: 0.5rem;
+    font-style: italic;
+`;
+const Links = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+`;
+const CollectionLink = styled(Link)`
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.1rem;
+    color: rgb(103, 193, 245);
+    background-color: #0e151d;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    &:hover {
+        background-color: #60b4e4;
+        color: white;
+    }
 `;
 const Classification = styled.div`
     display: flex;
@@ -45,27 +70,7 @@ const Overview = styled.div`
     font-size: 1.2rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 `;
-const Links = styled.div`
-    width: 100%;
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-`;
 
-const CollectionLink = styled(Link)`
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 1.1rem;
-    color: rgb(103, 193, 245);
-    background-color: #0e151d;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    &:hover {
-        background-color: #60b4e4;
-        color: white;
-    }
-`;
 const RightBox = styled.div`
     height: calc(100vh - 100px);
     display: flex;
@@ -95,7 +100,17 @@ function MovieContent({ movie }) {
         <>
             <Container>
                 <LeftBox>
-                    <Title>{movie.title}</Title>
+                    <Title>
+                        {movie.title}
+                        <SubTitle>{movie.original_title === movie.title ? '' : `( ${movie.original_title} )`}</SubTitle>
+                    </Title>
+                    <Links>
+                        {movie.belongs_to_collection && (
+                            <CollectionLink to={`/collection/${movie.belongs_to_collection.id}`}>
+                                {movie.belongs_to_collection.name}
+                            </CollectionLink>
+                        )}
+                    </Links>
                     <Classification>
                         <Year>
                             {movie.release_date.slice(0, 4)}
@@ -120,13 +135,6 @@ function MovieContent({ movie }) {
                     </Classification>
                     <Overview>{movie.overview}</Overview>
                     <Actors id={movie.id} isMovie={true} />
-                    <Links>
-                        {movie.belongs_to_collection && (
-                            <CollectionLink to={`/collection/${movie.belongs_to_collection.id}`}>
-                                {movie.belongs_to_collection.name}
-                            </CollectionLink>
-                        )}
-                    </Links>
                     <Videos videos={movie.videos.results} />
                 </LeftBox>
                 <RightBox>

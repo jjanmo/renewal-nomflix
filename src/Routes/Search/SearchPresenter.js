@@ -12,7 +12,6 @@ const Form = styled.form`
     justify-content: center;
     margin-top: 2rem;
 `;
-
 const Input = styled.input`
     width: 40%;
     background-color: rgba(49, 98, 130, 0.7);
@@ -38,7 +37,6 @@ const Input = styled.input`
         box-shadow: 0 0 0 1px #b2bec3;
     }
 `;
-
 const Button = styled.button`
     all: unset;
     cursor: pointer;
@@ -53,7 +51,6 @@ const MessageContainer = styled.div`
     height: 200px;
     margin: 2rem auto;
     padding: 1rem 2rem;
-    /* border-radius: 10px; */
     background-color: #267ba2;
     position: relative;
     font-size: 2rem;

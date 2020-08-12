@@ -1,13 +1,14 @@
 import React from 'react';
 import { HashRouter as Router, Route, Redirect } from 'react-router-dom';
 import Navigation from './Navigation';
-import Home from '../Routes/Home';
-import Movie from '../Routes/Movie';
-import TV from '../Routes/TV';
-import Search from '../Routes/Search';
-import Detail from '../Routes/Detail';
-import Collection from '../Routes/Collection';
-import Seasons from '../Routes/Seasons';
+import Home from 'Routes/Home';
+import Movie from 'Routes/Movie';
+import TV from 'Routes/TV';
+import Search from 'Routes/Search';
+import Detail from 'Routes/Detail';
+import Collection from 'Routes/Collection';
+import Seasons from 'Routes/Seasons';
+import Actor from 'Routes/Actor';
 
 function Routers() {
     return (
@@ -21,7 +22,7 @@ function Routers() {
             <Route path="/search" component={Search} />
             <Route path="/collection/:id" component={Collection} />
             <Route path="/seasons/:id" exact component={Seasons} />
-            {/* <Route path="/seasons/:id/:number" component={SeasonDetail} /> */}
+            <Route path="/actor/:id" exact component={Actor} />
             <Redirect from="*" to="/" />
         </Router>
     );

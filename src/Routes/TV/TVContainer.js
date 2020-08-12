@@ -11,6 +11,13 @@ export default class extends React.Component {
         error: null,
     };
 
+    getDate = async (id) => {
+        const {
+            data: { last_air_date },
+        } = await tvApi.getDetail(id);
+        return last_air_date;
+    };
+
     async componentDidMount() {
         try {
             const {
@@ -39,7 +46,6 @@ export default class extends React.Component {
     }
 
     render() {
-        const { isLoading, popular, topRated, onTheAir } = this.state;
-        return <TVPresenter isLoading={isLoading} popular={popular} topRated={topRated} onTheAir={onTheAir} />;
+        return <TVPresenter {...this.state} />;
     }
 }

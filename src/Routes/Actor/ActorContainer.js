@@ -1,12 +1,12 @@
 import React from 'react';
-import SeasonsPresenter from './SeasonsPresenter';
-import { tvApi } from 'api';
+import ActorPresenter from './ActorPresenter';
+import { commonApi } from 'api';
 
 export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: {},
+            actor: null,
             isLoading: true,
             error: null,
         };
@@ -18,20 +18,15 @@ export default class extends React.Component {
                 params: { id },
             },
         } = this.props;
-
         try {
-            const { data } = await tvApi.getDetail(id);
+            const { data: actor } = await commonApi.getActor(id);
             this.setState({
-                data,
+                actor,
             });
         } catch {
-            this.setState({
-                error: 'Can not find data...',
-            });
+            this.setState({ error: 'Can not find data...' });
         } finally {
-            this.setState({
-                isLoading: false,
-            });
+            this.setState({ isLoading: false });
         }
     };
 
@@ -40,6 +35,6 @@ export default class extends React.Component {
     }
 
     render() {
-        return <SeasonsPresenter {...this.state} />;
+        return <ActorPresenter {...this.state} />;
     }
 }

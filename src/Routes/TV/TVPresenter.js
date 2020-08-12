@@ -4,9 +4,7 @@ import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import Item from 'Components/Item';
 
-const Container = styled.div`
-    /* margin: 10px 0; */
-`;
+const Container = styled.div``;
 
 function TVPresenter({ isLoading, popular, topRated, onTheAir }) {
     return isLoading ? (
@@ -16,7 +14,14 @@ function TVPresenter({ isLoading, popular, topRated, onTheAir }) {
             {popular && popular.length > 0 && (
                 <Section title="Popular TVs">
                     {popular.map((tv) => (
-                        <Item key={tv.id} id={tv.id} title={tv.name} poster={tv.poster_path} rating={tv.vote_average} />
+                        <Item
+                            key={tv.id}
+                            id={tv.id}
+                            title={tv.name}
+                            poster={tv.poster_path}
+                            rating={tv.vote_average}
+                            year={tv.first_air_date.slice(0, 4)}
+                        />
                     ))}
                 </Section>
             )}

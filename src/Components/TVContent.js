@@ -18,7 +18,31 @@ const LeftBox = styled.div`
 `;
 const Title = styled.h1`
     font-size: 3.5rem;
-    margin: 1rem 0;
+    margin: 1rem 0 1.5rem;
+`;
+const SubTitle = styled.span`
+    font-size: 2rem;
+    color: #eee;
+    margin-left: 0.5rem;
+    font-style: italic;
+`;
+const Links = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+`;
+const SeasonsLink = styled(Link)`
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.1rem;
+    color: rgb(103, 193, 245);
+    background-color: #0e151d;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    &:hover {
+        background-color: #60b4e4;
+        color: white;
+    }
 `;
 const Classification = styled.div`
     display: flex;
@@ -41,27 +65,6 @@ const IMDbLogo = styled.img`
 const Overview = styled.div`
     font-size: 1.2rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-`;
-const Links = styled.div`
-    width: 100%;
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-`;
-
-const SeasonsLink = styled(Link)`
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 1.1rem;
-    color: rgb(103, 193, 245);
-    background-color: #0e151d;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    &:hover {
-        background-color: #60b4e4;
-        color: white;
-    }
 `;
 const RightBox = styled.div`
     height: calc(100vh - 100px);
@@ -93,7 +96,17 @@ function TVContent({ tv, imdbId }) {
         <>
             <Container>
                 <LeftBox>
-                    <Title>{tv.original_name}</Title>
+                    <Title>
+                        {tv.name}
+                        <SubTitle>{tv.original_name === tv.name ? '' : `( ${tv.original_name} )`}</SubTitle>
+                    </Title>
+                    <Links>
+                        {tv.seasons && (
+                            <SeasonsLink to={`/seasons/${tv.id}`} seasons={tv.seasons}>
+                                Seasons
+                            </SeasonsLink>
+                        )}
+                    </Links>
                     <Classification>
                         <Year>
                             {`${tv.first_air_date.slice(0, 4)} ~ ${tv.last_air_date.slice(0, 4)}`}
@@ -110,15 +123,9 @@ function TVContent({ tv, imdbId }) {
                             <IMDbLogo src="https://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" />
                         </IMDbLink>
                     </Classification>
+
                     <Overview>{tv.overview}</Overview>
                     <Actors id={tv.id} />
-                    <Links>
-                        {tv.seasons && (
-                            <SeasonsLink to={`/seasons/${tv.id}`} seasons={tv.seasons}>
-                                Seasons
-                            </SeasonsLink>
-                        )}
-                    </Links>
                     <Videos videos={tv.videos.results} />
                 </LeftBox>
                 <RightBox>

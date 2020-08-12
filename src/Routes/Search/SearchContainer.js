@@ -81,7 +81,6 @@ export default class extends React.Component {
 
     render() {
         const { isLoading, searchTerm, movies, TVs, isSubmitted } = this.state;
-        console.log(movies, TVs);
         return (
             <SearchPresenter
                 handleFocus={this.handleFocus}
