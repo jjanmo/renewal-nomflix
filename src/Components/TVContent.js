@@ -5,10 +5,12 @@ import Actors from 'Components/Actors';
 import { Link } from 'react-router-dom';
 import Videos from 'Components/Videos';
 import Rank from 'Components/Rank';
+import { withRouter } from 'react-router-dom';
 
 const Container = styled.div`
     display: grid;
     grid-template-columns: 60% 40%;
+    position: relative;
 `;
 const LeftBox = styled.div`
     display: flex;
@@ -65,6 +67,7 @@ const IMDbLogo = styled.img`
 const Overview = styled.div`
     font-size: 1.2rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 0.5rem;
 `;
 const RightBox = styled.div`
     height: calc(100vh - 100px);
@@ -80,6 +83,7 @@ const Poster = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    opacity: ${(props) => (props.isExisted ? 1 : 0.5)};
     @media (max-width: 1440px) {
         width: 400px;
         height: 600px;
@@ -89,12 +93,35 @@ const Poster = styled.div`
         height: 680px;
     }
 `;
+const Button = styled.button`
+    all: unset;
+    position: absolute;
+    top: 4%;
+    left: 60%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
+    color: rgb(103, 193, 245);
+    background-color: #0e151d;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    text-transform: uppercase;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
+    &:hover {
+        background-color: #60b4e4;
+        color: white;
+    }
+`;
 
-function TVContent({ tv, imdbId }) {
-    console.log(tv);
+function TVContent({ history, tv, imdbId }) {
+    const handleClick = () => {
+        history.goBack();
+    };
+
     return (
         <>
             <Container>
+                <Button onClick={handleClick}>back</Button>
                 <LeftBox>
                     <Title>
                         {tv.name}
@@ -109,11 +136,13 @@ function TVContent({ tv, imdbId }) {
                     </Links>
                     <Classification>
                         <Year>
-                            {`${tv.first_air_date.slice(0, 4)} ~ ${tv.last_air_date.slice(0, 4)}`}
+                            {`${tv.first_air_date ? tv.first_air_date.slice(0, 4) : 'Not Updated'} ${
+                                tv.first_air_date && tv.last_air_date ? ` ~ ${tv.last_air_date.slice(0, 4)}` : ''
+                            }`}
                             <Divider>|</Divider>
                         </Year>
                         <Runtime>
-                            {tv.episode_run_time} min
+                            {`${tv.episode_run_time} min` || 'Not Updated'}
                             <Divider>|</Divider>
                         </Runtime>
                         <Genres genres={tv.genres}></Genres>
@@ -123,17 +152,23 @@ function TVContent({ tv, imdbId }) {
                             <IMDbLogo src="https://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" />
                         </IMDbLink>
                     </Classification>
-
                     <Overview>{tv.overview}</Overview>
                     <Actors id={tv.id} />
                     <Videos videos={tv.videos.results} />
                 </LeftBox>
                 <RightBox>
-                    <Poster posterUrl={`https://image.tmdb.org/t/p/w400${tv.poster_path}`} />
+                    <Poster
+                        posterUrl={
+                            tv.poster_path
+                                ? `https://image.tmdb.org/t/p/w400${tv.poster_path}`
+                                : require('../assets/no_poster.png')
+                        }
+                        isExisted={tv.poster_path && true}
+                    />
                 </RightBox>
             </Container>
         </>
     );
 }
 
-export default TVContent;
+export default withRouter(TVContent);

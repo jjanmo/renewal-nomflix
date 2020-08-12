@@ -5,10 +5,12 @@ import Actors from 'Components/Actors';
 import { Link } from 'react-router-dom';
 import Videos from 'Components/Videos';
 import Rank from 'Components/Rank';
+import { withRouter } from 'react-router-dom';
 
 const Container = styled.div`
     display: grid;
     grid-template-columns: 60% 40%;
+    position: relative;
 `;
 const LeftBox = styled.div`
     display: flex;
@@ -85,19 +87,43 @@ const Poster = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    @media (max-width: 1440px) {
-        width: 400px;
-        height: 600px;
-    }
+    opacity: ${(props) => (props.isExisted ? 1 : 0.5)};
+    width: 400px;
+    height: 600px;
     @media (min-width: 1441px) {
         width: 460px;
         height: 680px;
     }
 `;
-function MovieContent({ movie }) {
+const Button = styled.button`
+    all: unset;
+    position: absolute;
+    top: 4%;
+    left: 60%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
+    color: rgb(103, 193, 245);
+    background-color: #0e151d;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    text-transform: uppercase;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
+    &:hover {
+        background-color: #60b4e4;
+        color: white;
+    }
+`;
+
+function MovieContent({ history, movie }) {
+    const handleClick = () => {
+        history.goBack();
+    };
+
     return (
         <>
             <Container>
+                <Button onClick={handleClick}>back</Button>
                 <LeftBox>
                     <Title>
                         {movie.title}
@@ -112,7 +138,7 @@ function MovieContent({ movie }) {
                     </Links>
                     <Classification>
                         <Year>
-                            {movie.release_date.slice(0, 4)}
+                            {movie.release_date ? movie.release_date.slice(0, 4) : 'Not Updated'}
                             <Divider>|</Divider>
                         </Year>
                         {movie.adult && (
@@ -137,11 +163,18 @@ function MovieContent({ movie }) {
                     <Videos videos={movie.videos.results} />
                 </LeftBox>
                 <RightBox>
-                    <Poster posterUrl={`https://image.tmdb.org/t/p/w400${movie.poster_path}`} />
+                    <Poster
+                        posterUrl={
+                            movie.poster_path
+                                ? `https://image.tmdb.org/t/p/w400${movie.poster_path}`
+                                : require('../assets/no_poster.png')
+                        }
+                        isExisted={movie.poster_path && true}
+                    />
                 </RightBox>
             </Container>
         </>
     );
 }
 
-export default MovieContent;
+export default withRouter(MovieContent);

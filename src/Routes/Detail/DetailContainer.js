@@ -33,7 +33,6 @@ export default class extends React.Component {
                 const {
                     data: { imdb_id },
                 } = await tvApi.getExternalId(id);
-                console.log(imdb_id);
                 this.setState({
                     tv,
                     imdbId: imdb_id,

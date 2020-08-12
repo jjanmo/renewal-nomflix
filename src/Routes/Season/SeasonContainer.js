@@ -1,36 +1,30 @@
 import React from 'react';
-import SeasonsPresenter from './SeasonsPresenter';
+import SeasonPresenter from './SeasonPresenter';
 import { tvApi } from 'api';
 
 export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: {},
             isLoading: true,
             error: null,
-            handleClick: null,
+            season: null,
         };
     }
-
-    handleClick = () => {
-        const { history } = this.props;
-        history.goBack();
-    };
 
     fetchData = async () => {
         const {
             match: {
-                params: { id },
+                params: { id, season: seasonNumber },
             },
         } = this.props;
 
         try {
-            const { data } = await tvApi.getDetail(id);
-            this.setState({
-                data,
-                handleClick: this.handleClick,
-            });
+            const { data } = await tvApi.getSeason(id, seasonNumber);
+            console.log(data);
+            // this.setState({
+            //     movie,
+            // });
         } catch {
             this.setState({
                 error: 'Can not find data...',
@@ -47,6 +41,6 @@ export default class extends React.Component {
     }
 
     render() {
-        return <SeasonsPresenter {...this.state} />;
+        return <SeasonPresenter {...this.state} />;
     }
 }

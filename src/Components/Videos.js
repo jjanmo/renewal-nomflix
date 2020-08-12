@@ -24,7 +24,7 @@ const Name = styled.div`
     text-overflow: ellipsis;
     width: 420px;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: no-wrap;
 `;
 
 function Videos({ videos }) {

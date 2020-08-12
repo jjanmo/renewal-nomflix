@@ -6,7 +6,7 @@ const ActorContainer = styled.div`
     width: 60%;
     border-radius: 10px;
     margin: 1rem auto;
-    padding: 2rem 0;
+    padding: 4rem 0 2rem;
     display: grid;
     grid-template-columns: 40% 60%;
     background-image: url('https://steamstore-a.akamaihd.net/public/images/v6/home/background_spotlight.jpg');
@@ -75,15 +75,18 @@ const Divider = styled.span`
 const Button = styled.button`
     all: unset;
     position: absolute;
-    top: 8%;
-    right: 8%;
+    top: 2%;
+    left: 50%;
+    transform: translate(-50%, 0%);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: rgb(103, 193, 245);
     background-color: #0e151d;
     padding: 0.5rem 1rem;
-    border-radius: 20px;
+    border-radius: 50%;
     margin-bottom: 1rem;
+    text-transform: uppercase;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     cursor: pointer;
     &:hover {
         background-color: #60b4e4;
@@ -98,7 +101,7 @@ function ActorPresenter({ isLoading, actor, handleClick }) {
         actor && (
             <>
                 <ActorContainer>
-                    <Button onClick={handleClick}>back</Button>
+                    <Button onClick={handleClick}>X</Button>
                     <LeftBox>
                         <Profile
                             profileUrl={

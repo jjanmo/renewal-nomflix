@@ -29,6 +29,8 @@ const Title = styled.h1`
     font-size: 3rem;
     margin: 1rem 0;
     z-index: 1;
+    display: flex;
+    align-items: center;
 `;
 const Overview = styled.div`
     font-size: 1.2rem;
@@ -88,14 +90,34 @@ const Item = styled.li`
     border-radius: 5px;
     overflow: hidden;
 `;
+const Button = styled.button`
+    all: unset;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
+    color: rgb(103, 193, 245);
+    background-color: #0e151d;
+    padding: 0.5rem 1rem;
+    margin-left: 1%;
+    border-radius: 50%;
+    text-transform: uppercase;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
+    &:hover {
+        background-color: #60b4e4;
+        color: white;
+    }
+`;
 
-function SeasonsPresenter({ isLoading, data }) {
+function SeasonsPresenter({ isLoading, data, handleClick }) {
     return isLoading ? (
         <Loader />
     ) : (
         <Container>
             <Background backdropUrl={`https://image.tmdb.org/t/p/w1280/${data.backdrop_path}`} />
-            <Title>{data.name}</Title>
+            <Title>
+                {data.name}
+                <Button onClick={handleClick}>back</Button>
+            </Title>
             <Overview>{data.overview}</Overview>
             <List>
                 {data.seasons &&

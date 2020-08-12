@@ -48,6 +48,7 @@ export const tvApi = {
         }),
     getCast: (id) => api.get(`/tv/${id}/credits`),
     getExternalId: (id) => api.get(`/tv/${id}/external_ids`),
+    getSeason: (id, seasonNumber) => api.get(`/tv/${id}/season/${seasonNumber}`),
 };
 
 export const commonApi = {

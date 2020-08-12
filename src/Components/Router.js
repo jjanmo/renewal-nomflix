@@ -9,6 +9,7 @@ import Detail from 'Routes/Detail';
 import Collection from 'Routes/Collection';
 import Seasons from 'Routes/Seasons';
 import Actor from 'Routes/Actor';
+import Season from 'Routes/Season';
 
 function Routers() {
     return (
@@ -23,6 +24,7 @@ function Routers() {
             <Route path="/collection/:id" component={Collection} />
             <Route path="/seasons/:id" exact component={Seasons} />
             <Route path="/actor/:id" exact component={Actor} />
+            <Route path="/seasons/:id/:season" component={Season} />
             <Redirect from="*" to="/" />
         </Router>
     );
