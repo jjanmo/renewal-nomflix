@@ -54,6 +54,8 @@ const Bio = styled.div`
     grid-column: 2;
     font-size: 1.2rem;
     width: 90%;
+    height: 50vh;
+    overflow: auto;
     line-height: 23px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
         sans-serif;

@@ -21,10 +21,7 @@ const Item = styled.li`
 `;
 const Name = styled.div`
     margin-bottom: 0.5rem;
-    text-overflow: ellipsis;
     width: 420px;
-    overflow: hidden;
-    white-space: no-wrap;
 `;
 
 function Videos({ videos }) {
@@ -36,7 +33,7 @@ function Videos({ videos }) {
                 <List>
                     {videos.map((video, index) => (
                         <Item key={index}>
-                            <Name>{video.name}</Name>
+                            <Name>{video.name && `${video.name.substring(0, 30)}...`}</Name>
                             <Iframe src={`https://youtube.com/embed/${video.key}`} width="400" height="250" />
                         </Item>
                     ))}
