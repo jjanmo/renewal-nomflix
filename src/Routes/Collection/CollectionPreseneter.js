@@ -51,6 +51,7 @@ const Poster = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
+    opacity: ${(props) => (props.isExisted ? 1 : 0.3)};
 `;
 const Name = styled.span`
     position: absolute;
@@ -135,7 +136,12 @@ function CollectionPresenter({ isLoading, collection, handleClick }) {
                         <Link to={`/movie/${movie.id}`} key={index}>
                             <Item>
                                 <Poster
-                                    posterUrl={`https://image.tmdb.org/t/p/w400${movie.backdrop_path || movie.poster_path}`}
+                                    posterUrl={
+                                        movie.backdrop_path
+                                            ? `https://image.tmdb.org/t/p/w400${movie.backdrop_path}`
+                                            : require('../../assets/no_poster.png')
+                                    }
+                                    isExisted={movie.backdrop_path && true}
                                 />
                                 <Name>{movie.title}</Name>
                                 <Year>{movie.release_date || 'not released'}</Year>
