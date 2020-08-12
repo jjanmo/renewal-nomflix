@@ -9,6 +9,7 @@ export default class extends React.Component {
             actor: null,
             isLoading: true,
             error: null,
+            handleClick: null,
         };
     }
 
@@ -22,12 +23,18 @@ export default class extends React.Component {
             const { data: actor } = await commonApi.getActor(id);
             this.setState({
                 actor,
+                handleClick: this.handleClick,
             });
         } catch {
             this.setState({ error: 'Can not find data...' });
         } finally {
             this.setState({ isLoading: false });
         }
+    };
+
+    handleClick = () => {
+        const { history } = this.props;
+        history.goBack();
     };
 
     componentDidMount() {

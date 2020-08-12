@@ -14,10 +14,10 @@ const ActorContainer = styled.div`
     background-size: cover;
     background-repeat: no-repeat;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    position: relative;
 `;
 const LeftBox = styled.div`
     display: flex;
-
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -53,7 +53,7 @@ const IMDbLogo = styled.img`
 const Bio = styled.div`
     grid-column: 2;
     font-size: 1.2rem;
-    width: 80%;
+    width: 90%;
     line-height: 23px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
         sans-serif;
@@ -72,15 +72,33 @@ const Divider = styled.span`
     color: #eee;
     font-weight: 700;
 `;
-const CastContainer = styled.div``;
+const Button = styled.button`
+    all: unset;
+    position: absolute;
+    top: 8%;
+    right: 8%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.1rem;
+    color: rgb(103, 193, 245);
+    background-color: #0e151d;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    &:hover {
+        background-color: #60b4e4;
+        color: white;
+    }
+`;
 
-function ActorPresenter({ isLoading, actor }) {
+function ActorPresenter({ isLoading, actor, handleClick }) {
     return isLoading ? (
         <Loader />
     ) : (
         actor && (
             <>
                 <ActorContainer>
+                    <Button onClick={handleClick}>back</Button>
                     <LeftBox>
                         <Profile
                             profileUrl={

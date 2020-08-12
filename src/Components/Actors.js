@@ -92,7 +92,6 @@ function Actors({ id, isMovie = false }) {
                     const {
                         data: { cast },
                     } = await movieApi.getCast(id);
-                    console.log(cast);
                     const _cast = cast.slice(0, 16);
                     setActors(_cast);
                     if (_cast.length > 8) setIsOver(true);
@@ -100,7 +99,6 @@ function Actors({ id, isMovie = false }) {
                     const {
                         data: { cast },
                     } = await tvApi.getCast(id);
-                    console.log(cast);
                     const _cast = cast.slice(0, 16);
                     setActors(_cast);
                     if (_cast.length > 8) setIsOver(true);

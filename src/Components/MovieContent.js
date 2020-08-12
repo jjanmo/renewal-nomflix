@@ -95,7 +95,6 @@ const Poster = styled.div`
     }
 `;
 function MovieContent({ movie }) {
-    console.log(movie);
     return (
         <>
             <Container>
