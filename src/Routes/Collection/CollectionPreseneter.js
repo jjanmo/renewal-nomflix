@@ -66,7 +66,6 @@ const Year = styled.span`
     bottom: 10px;
     left: 10px;
     transition: 0.4s all ease-in-out;
-    text-transform: uppercase;
 `;
 const Rating = styled.span`
     position: absolute;
@@ -144,7 +143,7 @@ function CollectionPresenter({ isLoading, collection, handleClick }) {
                                     isExisted={movie.backdrop_path && true}
                                 />
                                 <Name>{movie.title}</Name>
-                                <Year>{movie.release_date || 'not released'}</Year>
+                                <Year>{movie.release_date || 'Not Updated'}</Year>
                                 <Rating>
                                     <Stars
                                         full={Math.floor(movie.vote_average / 2)}
