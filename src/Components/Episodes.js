@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Rank from 'Components/Rank';
 
@@ -68,25 +68,24 @@ const StillShot = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    top : 0;
-    left : 0;
+    top: 0;
+    left: 0;
     border-radius: 10px;
     transition: all 0.5s ease-in-out;
     opacity: ${(props) => (props.isClicked ? 1 : 0)};
     z-index: ${(props) => (props.isClicked ? 1 : 0)};
-    /* background-color: ${(props) => (props.isExisted ? 'transparent' : 'rgba(0, 0, 0, 0.5)')}; */
-    background-size: ${(props) => (props.isExisted ? '100%' : '90% 90%')}; 
+    background-size: ${(props) => (props.isExisted ? '100%' : '90% 90%')};
 `;
 const Order = styled.span`
     position: absolute;
-    color: #222f3e;
     top: 5%;
     left: 5%;
-    /* transform: translate(-50%, 0); */
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 600;
+    letter-spacing: 1px;
     transition: opacity 0.4s ease-in-out;
     opacity: ${(props) => (props.current ? 1 : 0)};
+    color: ${(props) => (props.isExisted ? '#eee' : '#2d3436')};
 `;
 
 function Episodes({ episodes }) {
@@ -117,11 +116,11 @@ function Episodes({ episodes }) {
                             >
                                 <EpisodeTitle>
                                     <EpisodeNumber>{`Episode${episode.episode_number}`}</EpisodeNumber>{' '}
-                                    <Name>{episode.name}</Name>
+                                    <Name>{episode.name || 'Not Updated'}</Name>
                                     <Date>{episode.air_date || 'Not Updated'}</Date>
                                 </EpisodeTitle>
                                 <Rank score={episode.vote_average} totalVotes={episode.vote_count} />
-                                <Overview>{episode.overview}</Overview>
+                                <Overview>{episode.overview || 'Overview Not Updated'} </Overview>
                             </Item>
                         ))}
                     </List>

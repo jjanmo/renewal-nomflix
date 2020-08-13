@@ -6,9 +6,9 @@ const GlobalStyles = createGlobalStyle`
     :root{
         @media (max-width: 1440px) {
             font-size : 16px;
-	    }   
+	    }
 	    @media (min-width: 1441px) {
-		font-size : 19px;
+		font-size : 18px;
 	    }
     }
     *{
