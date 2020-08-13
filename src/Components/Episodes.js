@@ -25,7 +25,6 @@ const PosterList = styled.ul`
     width: 100%;
     height: 100%;
     position: relative;
-    /* background-color: rgba(0, 0, 0, 0.4); */
 `;
 const Item = styled.li`
     margin: 1rem auto;
@@ -33,13 +32,10 @@ const Item = styled.li`
     border-radius: 10px;
     width: 95%;
     cursor: pointer;
-    transition: 0.3s background-color ease-in-out;
-    /* background-color: #eee; */
+    transition: 0.5s background-color ease-in-out;
     background-color: ${(props) => (props.isClicked ? '#70a1ff' : '#eee')};
-    /* console.log(props.isClicked);
-        return props.isClicked ? '#70a1ff' : '#eee';
-    }}; */
 `;
+
 const EpisodeTitle = styled.div`
     width: 100%;
     display: flex;
@@ -68,64 +64,57 @@ const Overview = styled.div`
 `;
 const StillShot = styled.div`
     background-image: url(${(props) => props.stillShotPoster});
-    background-size: 90%;
     background-repeat: no-repeat;
-    background-position: center center;
-    /* opacity: ${(props) => (props.isExisted ? 1 : 0.5)}; */
     width: 100%;
     height: 100%;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 20px;
-    transition: 0.3s background-color ease-in-out;
-    overflow:hidden;
-    background-color: rgba(0,0,0,0.4);
+    top : 0;
+    left : 0;
+    border-radius: 10px;
+    transition: all 0.5s ease-in-out;
+    opacity: ${(props) => (props.isClicked ? 1 : 0)};
+    z-index: ${(props) => (props.isClicked ? 1 : 0)};
+    /* background-color: ${(props) => (props.isExisted ? 'transparent' : 'rgba(0, 0, 0, 0.5)')}; */
+    background-size: ${(props) => (props.isExisted ? '100%' : '90% 90%')}; 
 `;
 const Order = styled.span`
     position: absolute;
-    color: #636e72;
-    bottom: 2%;
-    left: 0;
-    transform: translate(-50%, -50%);
-    font-size: 1.1rem;
+    color: #222f3e;
+    top: 5%;
+    left: 5%;
+    /* transform: translate(-50%, 0); */
+    font-size: 1.3rem;
     font-weight: 600;
+    transition: opacity 0.4s ease-in-out;
+    opacity: ${(props) => (props.current ? 1 : 0)};
 `;
+
 function Episodes({ episodes }) {
-    console.log(episodes);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [stillShots, setStillShots] = useState({});
-    const [target, setTarget] = useState(null);
 
     const handleClick = (e) => {
-        e.stopPropagation();
         const { currentTarget } = e;
-        // currentTarget.style.backgroundColor = '#70a1ff';
         const _index = currentTarget.dataset.index;
         setCurrentIndex(_index);
-        setTarget(currentTarget);
-        currentTarget.style.backgroundColor = '#70a1ff';
-
-        // setBackgroundColor('#70a1ff');
     };
-
-    const getStillShots = () => episodes.map((episode) => episode.still_path || null);
-
-    useEffect(() => {
-        setStillShots(getStillShots());
-    }, [currentIndex]);
 
     return (
         episodes &&
         episodes.length > 0 && (
             <>
-                {console.log(stillShots)}
                 <Title>epsoide</Title>
                 <Container>
                     <List>
                         {episodes.map((episode, index) => (
-                            <Item key={episode.id} data-index={index} onClick={handleClick}>
+                            <Item
+                                key={episode.id}
+                                data-index={index}
+                                onClick={handleClick}
+                                id={index}
+                                isClicked={Number(index) === Number(currentIndex)}
+                                currentIndex={currentIndex}
+                                index={index}
+                            >
                                 <EpisodeTitle>
                                     <EpisodeNumber>{`Episode${episode.episode_number}`}</EpisodeNumber>{' '}
                                     <Name>{episode.name}</Name>
@@ -137,16 +126,24 @@ function Episodes({ episodes }) {
                         ))}
                     </List>
                     <PosterList>
-                        <StillShot
-                            stillShotPoster={
-                                stillShots[currentIndex]
-                                    ? `https://image.tmdb.org/t/p/w500${stillShots[currentIndex]}`
-                                    : require('../assets/no_poster.png')
-                            }
-                            // isExisted={episode.still_path && true}
-                        >
-                            {/* <Order>{`S${episode.season_number} E${episode.episode_number}`}</Order> */}
-                        </StillShot>
+                        {episodes.map((episode, index) => (
+                            <StillShot
+                                key={index}
+                                isClicked={Number(index) === Number(currentIndex)}
+                                stillShotPoster={
+                                    episode.still_path
+                                        ? `https://image.tmdb.org/t/p/w500${episode.still_path}`
+                                        : require('../assets/no_poster.png')
+                                }
+                                isExisted={episode.still_path && true}
+                            >
+                                <Order current={Number(index) === Number(currentIndex)} isExisted={episode.still_path && true}>
+                                    {episode.still_path
+                                        ? `S${episode.season_number} E${episode.episode_number}`
+                                        : 'Still shot Not Updated'}
+                                </Order>
+                            </StillShot>
+                        ))}
                     </PosterList>
                 </Container>
             </>

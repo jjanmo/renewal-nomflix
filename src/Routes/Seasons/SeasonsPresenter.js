@@ -69,6 +69,7 @@ const Poster = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
+    opacity: ${(props) => (props.isExisted ? 1 : 0.7)};
 `;
 const TopBox = styled.div`
     background-color: rgba(0, 0, 0, 0.3);
@@ -117,7 +118,6 @@ const Button = styled.button`
 `;
 
 function SeasonsPresenter({ isLoading, data, handleClick }) {
-    console.log(data);
     return isLoading ? (
         <>
             <Helmet>
@@ -159,7 +159,14 @@ function SeasonsPresenter({ isLoading, data, handleClick }) {
                                 </Row>
                             </TopBox>
                             <Item>
-                                <Poster posterUrl={`https://image.tmdb.org/t/p/w200${season.poster_path || data.poster_path}`} />
+                                <Poster
+                                    posterUrl={
+                                        season.poster_path
+                                            ? `https://image.tmdb.org/t/p/w200${season.poster_path}`
+                                            : require('../../assets/no_poster.png')
+                                    }
+                                    isExisted={season.poster_path && true}
+                                />
                             </Item>
                         </SLink>
                     ))}

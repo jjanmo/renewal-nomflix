@@ -51,7 +51,7 @@ const Poster = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: ${(props) => (props.isExisted ? 1 : 0.3)};
+    opacity: ${(props) => (props.isExisted ? 1 : 0.7)};
 `;
 const Name = styled.span`
     position: absolute;
@@ -112,7 +112,6 @@ const Button = styled.button`
 `;
 
 function CollectionPresenter({ isLoading, collection, handleClick }) {
-    console.log(collection);
     return isLoading ? (
         <>
             <Helmet>

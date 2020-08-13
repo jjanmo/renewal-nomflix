@@ -68,13 +68,9 @@ const Button = styled.button`
         color: white;
     }
 `;
-const EpisodeContainer = styled.div`
-    /* width: 100%;
-    margin: 1rem auto; */
-`;
+const EpisodeContainer = styled.div``;
 
 function SeasonPresenter({ isLoading, season, name, originalName, backdropUrl, handleClick }) {
-    console.log(season, name, originalName);
     return isLoading ? (
         <>
             <Loader />
