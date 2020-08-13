@@ -23,7 +23,7 @@ const Background = styled.div`
     opacity: 0.6;
 `;
 const Title = styled.h1`
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin: 1rem 0;
     display: flex;
     justify-content: left;
@@ -57,9 +57,10 @@ const Name = styled.span`
     position: absolute;
     font-size: 1.3rem;
     top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
     transition: 0.4s all ease-in-out;
+    text-align: center;
+    width: 100%;
 `;
 const Year = styled.span`
     position: absolute;
@@ -111,6 +112,7 @@ const Button = styled.button`
 `;
 
 function CollectionPresenter({ isLoading, collection, handleClick }) {
+    console.log(collection);
     return isLoading ? (
         <>
             <Helmet>
@@ -125,9 +127,9 @@ function CollectionPresenter({ isLoading, collection, handleClick }) {
             </Helmet>
             <Background backdropUrl={`https://image.tmdb.org/t/p/w1280/${collection.backdrop_path}`} />
             <Title>
-                {collection.name} <Button onClick={handleClick}>back</Button>
+                {collection.name}
+                <Button onClick={handleClick}>back</Button>
             </Title>
-
             <Overview>{collection.overview}</Overview>
             <List>
                 {collection.parts &&
@@ -157,4 +159,5 @@ function CollectionPresenter({ isLoading, collection, handleClick }) {
         </Container>
     );
 }
+
 export default CollectionPresenter;

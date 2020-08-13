@@ -10,7 +10,6 @@ import { withRouter } from 'react-router-dom';
 const Container = styled.div`
     display: grid;
     grid-template-columns: 60% 40%;
-    position: relative;
 `;
 const LeftBox = styled.div`
     display: flex;
@@ -20,19 +19,23 @@ const LeftBox = styled.div`
 `;
 const Title = styled.h1`
     font-size: 3.5rem;
-    margin: 1rem 0 1.5rem;
+    margin: 1rem 0 0.5rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
 `;
 const SubTitle = styled.span`
     font-size: 2rem;
-    color: #eee;
-    margin-left: 0.5rem;
     font-style: italic;
+    color: #eee;
+    margin-bottom: 1rem;
 `;
 const Links = styled.div`
     width: 100%;
     display: flex;
     justify-content: left;
     align-items: center;
+    margin-bottom: 1rem;
 `;
 const SeasonsLink = styled(Link)`
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -51,7 +54,7 @@ const Classification = styled.div`
     justify-content: left;
     align-items: center;
     font-size: 1.1rem;
-    margin: 1rem 0;
+    margin-bottom: 1rem;
 `;
 const Year = styled.span``;
 const Runtime = styled.span``;
@@ -95,15 +98,13 @@ const Poster = styled.div`
 `;
 const Button = styled.button`
     all: unset;
-    position: absolute;
-    top: 4%;
-    left: 60%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1rem;
     color: rgb(103, 193, 245);
     background-color: #0e151d;
     padding: 0.5rem 1rem;
     border-radius: 50%;
+    margin-left: 3%;
     text-transform: uppercase;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     cursor: pointer;
@@ -121,12 +122,12 @@ function TVContent({ history, tv, imdbId }) {
     return (
         <>
             <Container>
-                <Button onClick={handleClick}>back</Button>
                 <LeftBox>
                     <Title>
                         {tv.name}
-                        <SubTitle>{tv.original_name === tv.name ? '' : `( ${tv.original_name} )`}</SubTitle>
+                        <Button onClick={handleClick}>back</Button>
                     </Title>
+                    <SubTitle>{tv.original_name === tv.name ? '' : `( ${tv.original_name} )`}</SubTitle>
                     <Links>
                         {tv.seasons && (
                             <SeasonsLink to={`/seasons/${tv.id}`} seasons={tv.seasons}>

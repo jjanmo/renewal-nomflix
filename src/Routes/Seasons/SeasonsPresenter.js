@@ -9,8 +9,8 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: left;
     align-content: center;
-    padding-left: 5rem;
-    margin-bottom: 2rem;
+    width: 90%;
+    margin: 1rem auto;
 `;
 const Background = styled.div`
     background-image: url(${(props) => props.backdropUrl});
@@ -27,24 +27,30 @@ const Background = styled.div`
     opacity: 0.6;
 `;
 const Title = styled.h1`
-    font-size: 3rem;
-    margin: 1rem 0;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
     z-index: 1;
     display: flex;
     align-items: center;
 `;
+const SubTitle = styled.span`
+    font-size: 2rem;
+    font-style: italic;
+    color: #eee;
+    margin-bottom: 1rem;
+`;
 const Overview = styled.div`
+    width: 90%;
     font-size: 1.2rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 1rem 0;
-    width: 90%;
+    margin-bottom: 2rem;
 `;
 const List = styled.ul`
     display: flex;
-    margin: 1rem 0 0;
     width: 90%;
-    overflow: auto;
+    margin-bottom: 1rem;
     padding: 1rem 0;
+    overflow: auto;
 `;
 const SLink = styled(Link)`
     display: flex;
@@ -93,12 +99,13 @@ const Item = styled.li`
 `;
 const Button = styled.button`
     all: unset;
+    display: inline-block;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1rem;
     color: rgb(103, 193, 245);
     background-color: #0e151d;
     padding: 0.5rem 1rem;
-    margin-left: 1%;
+    margin-left: 2%;
     border-radius: 50%;
     text-transform: uppercase;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -110,6 +117,7 @@ const Button = styled.button`
 `;
 
 function SeasonsPresenter({ isLoading, data, handleClick }) {
+    console.log(data);
     return isLoading ? (
         <>
             <Helmet>
@@ -127,11 +135,22 @@ function SeasonsPresenter({ isLoading, data, handleClick }) {
                 {data.name}
                 <Button onClick={handleClick}>back</Button>
             </Title>
+            <SubTitle>{data.original_name && data.original_name === data.name ? '' : `( ${data.original_name} )`}</SubTitle>
             <Overview>{data.overview}</Overview>
             <List>
                 {data.seasons &&
                     data.seasons.map((season, index) => (
-                        <SLink to={`/seasons/${data.id}/${season.season_number}`} key={index}>
+                        <SLink
+                            to={{
+                                pathname: `/seasons/${data.id}/${season.season_number}`,
+                                state: {
+                                    name: data.name,
+                                    originalName: data.original_name,
+                                    backdropUrl: `https://image.tmdb.org/t/p/w1280/${data.backdrop_path}`,
+                                },
+                            }}
+                            key={index}
+                        >
                             <TopBox>
                                 <Name>{season.name}</Name>
                                 <Row>
