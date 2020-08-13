@@ -48,7 +48,12 @@ export const tvApi = {
         }),
     getCast: (id) => api.get(`/tv/${id}/credits`),
     getExternalId: (id) => api.get(`/tv/${id}/external_ids`),
-    getSeason: (id, seasonNumber) => api.get(`/tv/${id}/season/${seasonNumber}`),
+    getSeason: (id, seasonNumber) =>
+        api.get(`/tv/${id}/season/${seasonNumber}`, {
+            params: {
+                append_to_response: 'videos,images',
+            },
+        }),
 };
 
 export const commonApi = {

@@ -68,6 +68,10 @@ const Button = styled.button`
         color: white;
     }
 `;
+const EpisodeContainer = styled.div`
+    /* width: 100%;
+    margin: 1rem auto; */
+`;
 
 function SeasonPresenter({ isLoading, season, name, originalName, backdropUrl, handleClick }) {
     console.log(season, name, originalName);
@@ -93,7 +97,9 @@ function SeasonPresenter({ isLoading, season, name, originalName, backdropUrl, h
                 <SubTitle>{name && originalName === name ? '' : `( ${originalName} )`}</SubTitle>
             </Title>
             <Overview>{`${season.overview}` || 'Overview Not Updated'}</Overview>
-            <Episodes episodes={season.episodes} />
+            <EpisodeContainer>
+                {season.episodes && season.episodes.length > 0 && <Episodes episodes={season.episodes} />}
+            </EpisodeContainer>
         </Container>
     );
 }

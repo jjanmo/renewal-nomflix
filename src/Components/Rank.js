@@ -8,17 +8,15 @@ const Wrapper = styled.span`
     margin-left: 0.5rem;
 `;
 const Score = styled.span`
-    font-size: 1, 5rem;
+    font-size: 1.5rem;
 `;
 const Divider = styled.span`
     color: rgba(53, 59, 72, 1);
-    font-weight: 600;
     margin-left: 0.2rem;
     font-size: 1rem;
 `;
 const Total = styled.span`
     color: rgba(53, 59, 72, 1);
-    font-weight: 600;
     font-size: 1rem;
 `;
 const TotalVotes = styled.span`
