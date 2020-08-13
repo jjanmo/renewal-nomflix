@@ -9,8 +9,14 @@ export default class extends React.Component {
             isLoading: true,
             error: null,
             season: null,
+            handleClick: null,
         };
     }
+
+    handleClick = () => {
+        const { history } = this.props;
+        history.goBack();
+    };
 
     fetchData = async () => {
         const {
@@ -20,11 +26,11 @@ export default class extends React.Component {
         } = this.props;
 
         try {
-            const { data } = await tvApi.getSeason(id, seasonNumber);
-            console.log(data);
-            // this.setState({
-            //     movie,
-            // });
+            const { data: season } = await tvApi.getSeason(id, seasonNumber);
+            this.setState({
+                season,
+                handleClick: this.handleClick,
+            });
         } catch {
             this.setState({
                 error: 'Can not find data...',
@@ -41,6 +47,9 @@ export default class extends React.Component {
     }
 
     render() {
-        return <SeasonPresenter {...this.state} />;
+        const {
+            location: { state },
+        } = this.props;
+        return <SeasonPresenter {...this.state} {...state} />;
     }
 }
