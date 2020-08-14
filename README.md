@@ -6,26 +6,43 @@
 
 > with [NomadCoders React Course](https://nomadcoders.co/react-for-beginners)
 
+> [Demo](https://gracious-saha-987b9e.netlify.app)
+
 ## Pages and Sections
 
 - Home page
 
-  - [ ] now playing movies
-  - [ ] upcoming movies
-  - [ ] airing today TVs
+  - [x] now playing movies
+  - [x] upcoming movies
+  - [x] airing today TVs
 
 - Movie page
 
-  - [ ] popular movies
-  - [ ] top rated movies
+  - [x] popular movies
+  - [x] top rated movies
 
 - TV page
 
-  - [ ] popular TVs
-  - [ ] top rated TVs
-  - [ ] on the air TVs in the next 7 days
+  - [x] popular TVs
+  - [x] top rated TVs
+  - [x] on the air TVs in the next 7 days
+
+- Actor page
+  > Can show actor information
 
 - Search page
   > Can look for movie or TV
+
 - Moive/TV detail page
-  > Contain Each movie or TV details
+  > Contains Each movie or TV details
+
+-  Collection page
+-  > Contains details about movie series
+
+- Tv series page
+  > Contains details about TV series
+
+ ## Challenges
+
+ ## Improvements
+
