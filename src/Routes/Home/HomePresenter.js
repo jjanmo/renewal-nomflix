@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import Item from 'Components/Item';
 import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 const Container = styled.div``;
 
@@ -68,5 +69,39 @@ function HomePresenter({ isLoading, nowPlaying, upcoming, airingToday }) {
         </Container>
     );
 }
+
+HomePresenter.propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+    nowPlaying: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            title: PropTypes.string,
+            poster_path: PropTypes.string,
+            vote_average: PropTypes.number,
+            release_date: PropTypes.string,
+            isMovie: PropTypes.bool,
+        })
+    ),
+    upcoming: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            title: PropTypes.string,
+            poster_path: PropTypes.string,
+            vote_average: PropTypes.number,
+            release_date: PropTypes.string,
+            isMovie: PropTypes.bool,
+        })
+    ),
+    airingToday: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            name: PropTypes.string,
+            poster_path: PropTypes.string,
+            vote_average: PropTypes.number,
+            first_air_date: PropTypes.string,
+            isMovie: PropTypes.bool,
+        })
+    ),
+};
 
 export default HomePresenter;

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import Item from 'Components/Item';
 import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 const Container = styled.div``;
 
@@ -50,5 +51,29 @@ function MoviePresenter({ isLoading, popular, topRated }) {
         </Container>
     );
 }
+
+MoviePresenter.propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+    popular: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            title: PropTypes.string,
+            poster_path: PropTypes.string,
+            vote_average: PropTypes.number,
+            release_date: PropTypes.string,
+            isMovie: PropTypes.bool,
+        })
+    ),
+    topRated: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            title: PropTypes.string,
+            poster_path: PropTypes.string,
+            vote_average: PropTypes.number,
+            release_date: PropTypes.string,
+            isMovie: PropTypes.bool,
+        })
+    ),
+};
 
 export default MoviePresenter;

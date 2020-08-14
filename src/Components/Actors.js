@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { movieApi, tvApi } from 'api';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -136,5 +137,13 @@ function Actors({ id, isMovie = false }) {
         )
     );
 }
+
+Actors.propTypes = {
+    isOver: PropTypes.bool,
+    actor: PropTypes.arrayOf({
+        id: PropTypes.string.isRequired,
+        profile_path: PropTypes.string,
+    }),
+};
 
 export default Actors;

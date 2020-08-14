@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Videos from 'Components/Videos';
 import Rank from 'Components/Rank';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
     display: grid;
@@ -149,9 +150,11 @@ function TVContent({ history, tv, imdbId }) {
                         <Genres genres={tv.genres}></Genres>
                         <Rank score={tv.vote_average} totalVotes={tv.vote_count} />
                         <Divider>|</Divider>
-                        <IMDbLink href={`https://www.imdb.com/title/${imdbId}`} target="_blank">
-                            <IMDbLogo src="https://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" />
-                        </IMDbLink>
+                        {imdbId && (
+                            <IMDbLink href={`https://www.imdb.com/title/${imdbId}`} target="_blank">
+                                <IMDbLogo src="https://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" />
+                            </IMDbLink>
+                        )}
                     </Classification>
                     <Overview>{tv.overview}</Overview>
                     <Actors id={tv.id} />
@@ -171,5 +174,39 @@ function TVContent({ history, tv, imdbId }) {
         </>
     );
 }
+
+TVContent.propTypes = {
+    tv: PropTypes.shape({
+        name: PropTypes.string,
+        original_name: PropTypes.string,
+        seasons: PropTypes.arrayOf(
+            PropTypes.shape({
+                air_date: PropTypes.string,
+                episode_count: PropTypes.number,
+                name: PropTypes.string,
+                overview: PropTypes.string,
+                poster_path: PropTypes.string,
+                season_number: PropTypes.number,
+            })
+        ),
+        first_air_date: PropTypes.string,
+        last_air_date: PropTypes.string,
+        episode_run_time: PropTypes.arrayOf(PropTypes.number),
+        vote_average: PropTypes.number,
+        vote_count: PropTypes.number,
+        overview: PropTypes.string,
+        videos: PropTypes.shape({
+            results: PropTypes.arrayOf(
+                PropTypes.shape({
+                    id: PropTypes.string.isRequired,
+                    key: PropTypes.string,
+                    name: PropTypes.string,
+                })
+            ),
+        }),
+        poster_path: PropTypes.string,
+    }),
+    imdbId: PropTypes.string,
+};
 
 export default withRouter(TVContent);

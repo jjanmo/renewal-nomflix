@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Videos from 'Components/Videos';
 import Rank from 'Components/Rank';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
     display: grid;
@@ -152,9 +153,11 @@ function MovieContent({ history, movie }) {
                         <Genres genres={movie.genres}></Genres>
                         <Rank score={movie.vote_average} totalVotes={movie.vote_count} />
                         <Divider>|</Divider>
-                        <IMDbLink href={`https://www.imdb.com/title/${movie.imdb_id}`} target="_blank">
-                            <IMDbLogo src="https://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" />
-                        </IMDbLink>
+                        {movie.imdb_id && (
+                            <IMDbLink href={`https://www.imdb.com/title/${movie.imdb_id}`} target="_blank">
+                                <IMDbLogo src="https://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" />
+                            </IMDbLink>
+                        )}
                     </Classification>
                     <Overview>{movie.overview}</Overview>
                     <Actors id={movie.id} isMovie={true} />
@@ -174,5 +177,34 @@ function MovieContent({ history, movie }) {
         </>
     );
 }
+
+MovieContent.propTypes = {
+    movie: PropTypes.shape({
+        title: PropTypes.string,
+        original_title: PropTypes.string,
+        belongs_to_collection: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+        }),
+        release_date: PropTypes.string,
+        adult: PropTypes.bool,
+        runtime: PropTypes.number,
+        genres: PropTypes.array,
+        vote_average: PropTypes.number,
+        imdb_id: PropTypes.string,
+        overview: PropTypes.string,
+        id: PropTypes.number.isRequired,
+        videos: PropTypes.shape({
+            results: PropTypes.arrayOf(
+                PropTypes.shape({
+                    id: PropTypes.string.isRequired,
+                    key: PropTypes.string.isRequired,
+                    name: PropTypes.string.isRequired,
+                })
+            ),
+        }),
+        poster_path: PropTypes.string,
+    }).isRequired,
+};
 
 export default withRouter(MovieContent);

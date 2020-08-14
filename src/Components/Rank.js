@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Container = styled.span``;
 const Wrapper = styled.span`
@@ -38,4 +39,8 @@ function Rank({ score, totalVotes }) {
     );
 }
 
+Rank.propTypes = {
+    score: PropTypes.number,
+    totalVotes: PropTypes.number,
+};
 export default Rank;

@@ -4,6 +4,7 @@ import Loader from 'Components/Loader';
 import Stars from 'Components/Stars';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
     padding: 0 5rem;
@@ -124,7 +125,9 @@ function CollectionPresenter({ isLoading, collection, handleClick }) {
             <Helmet>
                 <title>{collection.name} | Nomflix</title>
             </Helmet>
-            <Background backdropUrl={`https://image.tmdb.org/t/p/w1280/${collection.backdrop_path}`} />
+            <Background
+                backdropUrl={collection.backdrop_path ? `https://image.tmdb.org/t/p/w1280/${collection.backdrop_path}` : ''}
+            />
             <Title>
                 {collection.name}
                 <Button onClick={handleClick}>back</Button>
@@ -158,5 +161,23 @@ function CollectionPresenter({ isLoading, collection, handleClick }) {
         </Container>
     );
 }
+
+CollectionPresenter.propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+    collection: PropTypes.shape({
+        name: PropTypes.string,
+        backdrop_path: PropTypes.string,
+        overview: PropTypes.string,
+        parts: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.number,
+                title: PropTypes.string,
+                release_date: PropTypes.string,
+                vote_average: PropTypes.number,
+            })
+        ),
+    }),
+    handleClick: PropTypes.func,
+};
 
 export default CollectionPresenter;

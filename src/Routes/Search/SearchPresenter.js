@@ -6,6 +6,7 @@ import Loader from 'Components/Loader';
 import Section from 'Components/Section';
 import Item from 'Components/Item';
 import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 const Form = styled.form`
     width: 100%;
@@ -118,7 +119,7 @@ function SearchPresenter({
                                     poster={movie.poster_path}
                                     rating={movie.vote_average}
                                     year={movie.release_date && movie.release_date.slice(0, 4)}
-                                    isMovie
+                                    isMovie={true}
                                 />
                             ))}
                         </Section>
@@ -150,4 +151,33 @@ function SearchPresenter({
         </>
     );
 }
+
+SearchPresenter.propTypes = {
+    handleFocus: PropTypes.func.isRequired,
+    handleBlur: PropTypes.func.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    isSubmitted: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    searchTerm: PropTypes.string.isRequired,
+    movies: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            title: PropTypes.string,
+            poster_path: PropTypes.string,
+            vote_average: PropTypes.number,
+            release_date: PropTypes.string,
+        })
+    ).isRequired,
+    TVs: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            title: PropTypes.string,
+            poster_path: PropTypes.string,
+            vote_average: PropTypes.number,
+            release_date: PropTypes.string,
+        })
+    ).isRequired,
+};
+
 export default SearchPresenter;

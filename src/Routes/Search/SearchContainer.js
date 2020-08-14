@@ -13,7 +13,6 @@ export default class extends React.Component {
     };
 
     fetchData = async (term) => {
-        console.log(term);
         this.setState({ isLoading: true });
         try {
             const {
@@ -26,7 +25,6 @@ export default class extends React.Component {
                 movies,
                 TVs,
             });
-            console.log(movies, TVs);
         } catch {
             this.setState({
                 error: 'Can not find data...',

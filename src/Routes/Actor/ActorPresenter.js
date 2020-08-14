@@ -2,6 +2,7 @@ import React from 'react';
 import Loader from 'Components/Loader';
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 const ActorContainer = styled.div`
     width: 60%;
@@ -126,9 +127,11 @@ function ActorPresenter({ isLoading, actor, handleClick }) {
                     <RightBox>
                         <Name>
                             {actor.name}
-                            <IMDbLink href={`https://www.imdb.com/name/${actor.imdb_id}`} target="_blank">
-                                <IMDbLogo src="https://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" />
-                            </IMDbLink>
+                            {actor.imdb_id && (
+                                <IMDbLink href={`https://www.imdb.com/name/${actor.imdb_id}`} target="_blank">
+                                    <IMDbLogo src="https://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" />
+                                </IMDbLink>
+                            )}
                         </Name>
                         <Row>
                             <Year>{`${actor.birthday ? actor.birthday.substring(0, 4) : 'Not Updated'}  ${
@@ -144,5 +147,20 @@ function ActorPresenter({ isLoading, actor, handleClick }) {
         )
     );
 }
+
+ActorPresenter.propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+    actor: PropTypes.shape({
+        biography: PropTypes.string,
+        birthday: PropTypes.string,
+        deathday: PropTypes.string,
+        id: PropTypes.number,
+        name: PropTypes.string,
+        place_of_birth: PropTypes.string,
+        profile_path: PropTypes.string,
+        imdb_id: PropTypes.string,
+    }),
+    handleClick: PropTypes.func,
+};
 
 export default ActorPresenter;

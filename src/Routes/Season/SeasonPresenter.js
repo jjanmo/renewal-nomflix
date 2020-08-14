@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import { Helmet } from 'react-helmet';
 import Episodes from 'Components/Episodes';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
     width: 80%;
@@ -99,5 +100,29 @@ function SeasonPresenter({ isLoading, season, name, originalName, backdropUrl, h
         </Container>
     );
 }
+
+SeasonPresenter.propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+    season: PropTypes.shape({
+        episodes: PropTypes.arrayOf(
+            PropTypes.shape({
+                air_date: PropTypes.string,
+                episode_number: PropTypes.number,
+                name: PropTypes.string,
+                overview: PropTypes.string,
+                season_number: PropTypes.number,
+                still_path: PropTypes.string,
+                vote_average: PropTypes.number,
+                vote_count: PropTypes.number,
+            })
+        ),
+        season_number: PropTypes.number,
+        overview: PropTypes.string,
+    }),
+    name: PropTypes.string,
+    originalName: PropTypes.string,
+    backdropUrl: PropTypes.string,
+    handleClick: PropTypes.func,
+};
 
 export default SeasonPresenter;

@@ -4,6 +4,7 @@ import Loader from 'Components/Loader';
 import MovieContent from 'Components/MovieContent';
 import TVContent from 'Components/TVContent';
 import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
     width: 100%;
@@ -37,7 +38,7 @@ function DetailPresenter({ isLoading, movie, tv, imdbId }) {
                 <Helmet>
                     <title>{movie.title} | Nomflix</title>
                 </Helmet>
-                <Background backdropUrl={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`} />
+                <Background backdropUrl={movie.backdrop_path ? `https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}` : ''} />
                 <MovieContent movie={movie} />
             </Container>
         )) ||
@@ -46,11 +47,24 @@ function DetailPresenter({ isLoading, movie, tv, imdbId }) {
                     <Helmet>
                         <title>{tv.name} | Nomflix</title>
                     </Helmet>
-                    <Background backdropUrl={`https://image.tmdb.org/t/p/w1280/${tv.backdrop_path}`} />
+                    <Background backdropUrl={tv.backdrop_path ? `https://image.tmdb.org/t/p/w1280/${tv.backdrop_path}` : ''} />
                     <TVContent tv={tv} imdbId={imdbId} />
                 </Container>
             ))
     );
 }
+
+DetailPresenter.propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+    movie: PropTypes.shape({
+        title: PropTypes.string,
+        backdrop_path: PropTypes.string,
+    }),
+    tv: PropTypes.shape({
+        name: PropTypes.string,
+        backdrop_path: PropTypes.string,
+    }),
+    imdbId: PropTypes.string,
+};
 
 export default DetailPresenter;

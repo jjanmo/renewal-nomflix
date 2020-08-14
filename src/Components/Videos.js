@@ -1,6 +1,7 @@
 import React from 'react';
 import Iframe from 'react-iframe';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -42,5 +43,10 @@ function Videos({ videos }) {
         )
     );
 }
+
+Videos.propTypes = {
+    name: PropTypes.string,
+    key: PropTypes.string,
+};
 
 export default Videos;

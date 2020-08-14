@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Rank from 'Components/Rank';
+import PropTypes from 'prop-types';
 
 const Title = styled.h2`
     text-transform: uppercase;
@@ -149,5 +150,21 @@ function Episodes({ episodes }) {
         )
     );
 }
+
+Episodes.propTypes = {
+    episodes: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            episode_number: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+            air_date: PropTypes.string,
+            vote_average: PropTypes.number.isRequired,
+            vote_count: PropTypes.number.isRequired,
+            overview: PropTypes.string.isRequired,
+            still_path: PropTypes.string,
+            season_number: PropTypes.number.isRequired,
+        })
+    ).isRequired,
+};
 
 export default Episodes;

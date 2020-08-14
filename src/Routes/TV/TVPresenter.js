@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import Item from 'Components/Item';
 import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 const Container = styled.div``;
 
@@ -62,5 +63,36 @@ function TVPresenter({ isLoading, popular, topRated, onTheAir }) {
         </Container>
     );
 }
+
+TVPresenter.propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+    popular: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            name: PropTypes.string,
+            poster_path: PropTypes.string,
+            vote_average: PropTypes.number,
+            first_air_date: PropTypes.string,
+        })
+    ),
+    topRated: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            name: PropTypes.string,
+            poster_path: PropTypes.string,
+            vote_average: PropTypes.number,
+            first_air_date: PropTypes.string,
+        })
+    ),
+    onTheAir: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            name: PropTypes.string,
+            poster_path: PropTypes.string,
+            vote_average: PropTypes.number,
+            first_air_date: PropTypes.string,
+        })
+    ),
+};
 
 export default TVPresenter;

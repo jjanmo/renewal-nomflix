@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
     display: flex;
@@ -130,7 +131,7 @@ function SeasonsPresenter({ isLoading, data, handleClick }) {
             <Helmet>
                 <title>{data.name} | Nomflix</title>
             </Helmet>
-            <Background backdropUrl={`https://image.tmdb.org/t/p/w1280/${data.backdrop_path}`} />
+            <Background backdropUrl={data.backdrop_path ? `https://image.tmdb.org/t/p/w1280/${data.backdrop_path}` : ''} />
             <Title>
                 {data.name}
                 <Button onClick={handleClick}>back</Button>
@@ -146,7 +147,9 @@ function SeasonsPresenter({ isLoading, data, handleClick }) {
                                 state: {
                                     name: data.name,
                                     originalName: data.original_name,
-                                    backdropUrl: `https://image.tmdb.org/t/p/w1280/${data.backdrop_path}`,
+                                    backdropUrl: data.backdrop_path
+                                        ? `https://image.tmdb.org/t/p/w1280/${data.backdrop_path}`
+                                        : '',
                                 },
                             }}
                             key={index}
@@ -174,5 +177,25 @@ function SeasonsPresenter({ isLoading, data, handleClick }) {
         </Container>
     );
 }
+
+SeasonsPresenter.propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+    data: PropTypes.shape({
+        name: PropTypes.string,
+        backdrop_path: PropTypes.string,
+        original_name: PropTypes.string,
+        overview: PropTypes.string,
+        seasons: PropTypes.arrayOf(
+            PropTypes.shape({
+                season_number: PropTypes.number,
+                name: PropTypes.string,
+                air_date: PropTypes.string,
+                episode_count: PropTypes.number,
+                poster_path: PropTypes.string,
+            })
+        ),
+    }),
+    handleClick: PropTypes.func,
+};
 
 export default SeasonsPresenter;

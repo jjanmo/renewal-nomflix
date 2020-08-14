@@ -6,7 +6,7 @@ export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            collection: [],
+            collection: {},
             isLoading: true,
             error: null,
             handleClick: null,
