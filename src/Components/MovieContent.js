@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 const Container = styled.div`
 	display: grid;
-	grid-template-columns: 60% 40%;
+	grid-template-columns: 65% 35%;
 `;
 const LeftBox = styled.div`
 	display: flex;
@@ -54,8 +54,20 @@ const Classification = styled.div`
 	display: flex;
 	justify-content: left;
 	align-items: center;
-	font-size: 1.1rem;
 	margin-bottom: 1rem;
+	font-size: ${(props) => {
+		switch (props.genresLength) {
+			case 4: {
+				return '1rem';
+			}
+			case 5: {
+				return '0.9rem';
+			}
+			default: {
+				return '1.1rem';
+			}
+		}
+	}};
 `;
 const Year = styled.span``;
 const Adult = styled.span`
@@ -95,8 +107,8 @@ const Poster = styled.div`
 		height: 680px;
 	}
 	@media (max-width: 1440px) {
-		width: 380px;
-		height: 500px;
+		width: 300px;
+		height: 400px;
 	}
 `;
 const Button = styled.button`
@@ -142,7 +154,7 @@ function MovieContent({ history, movie }) {
 							</CollectionLink>
 						)}
 					</Links>
-					<Classification>
+					<Classification genresLength={movie.genres && movie.genres.length}>
 						<Year>
 							{movie.release_date
 								? movie.release_date.slice(0, 4)

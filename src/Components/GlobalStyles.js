@@ -5,11 +5,11 @@ const GlobalStyles = createGlobalStyle`
     ${reset};
     :root{
         @media (max-width: 1440px) {
-            font-size : 15px;
-	}
-	@media (min-width: 1441px) {
-	    font-size : 18px;
-	}
+            font-size : 14px;
+	    }
+	    @media (min-width: 1441px) {
+		    font-size : 18px;
+	    }
     }
     *{
         box-sizing: border-box;

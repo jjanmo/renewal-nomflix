@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 const Container = styled.div`
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	margin: 1rem 0;
 `;
 const Title = styled.h2`
 	text-transform: uppercase;

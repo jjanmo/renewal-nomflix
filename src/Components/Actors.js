@@ -14,7 +14,7 @@ const Title = styled.h2`
 	font-weight: 550;
 	font-size: 1.2rem;
 	color: #eee;
-	margin-bottom: 0.5rem;
+	margin: 0.5rem 0 1rem;
 `;
 const List = styled.ul`
 	display: grid;
@@ -23,9 +23,9 @@ const List = styled.ul`
 	justify-content: left;
 
 	@media (max-width: 1440px) {
-		grid-template-columns: repeat(8, 90px);
+		grid-template-columns: repeat(8, 80px);
 		grid-template-rows: ${(props) =>
-			props.isOver ? 'repeat(2, 100px)' : 'repeat(1, 100px)'};
+			props.isOver ? 'repeat(2, 95px)' : 'repeat(1, 95px)'};
 	}
 	@media (min-width: 1441px) {
 		grid-template-columns: repeat(8, 120px);
@@ -44,7 +44,7 @@ const Item = styled.li`
 	cursor: pointer;
 	transition: all 0.3s ease-in-out;
 	&:hover {
-		transform: scale(1.5);
+		transform: scale(1.4);
 		z-index: 1;
 		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	}
