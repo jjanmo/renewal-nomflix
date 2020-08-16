@@ -10,39 +10,37 @@
 
 ## Pages and Sections
 
-- Home page
+-   Home page
 
-  - [x] now playing movies
-  - [x] upcoming movies
-  - [x] airing today TVs
+    -   [x] now playing movies
+    -   [x] upcoming movies
+    -   [x] airing today TVs
 
-- Movie page
+-   Movie page
 
-  - [x] popular movies
-  - [x] top rated movies
+    -   [x] popular movies
+    -   [x] top rated movies
 
-- TV page
+-   TV page
 
-  - [x] popular TVs
-  - [x] top rated TVs
-  - [x] on the air TVs in the next 7 days
+    -   [x] popular TVs
+    -   [x] top rated TVs
+    -   [x] on the air TVs in the next 7 days
 
-- Actor page
-  > Can show actor information
+-   Actor page
 
-- Search page
-  > Can look for movie or TV
+    > Can show actor information
 
-- Moive/TV detail page
-  > Contains Each movie or TV details
+-   Search page
 
--  Collection page
--  > Contains details about movie series
+    > Can look for movie or TV
 
-- Tv series page
-  > Contains details about TV series
+-   Moive/TV detail page
 
- ## Challenges
+    > Contains Each movie or TV details
 
- ## Improvements
+-   Collection page
+-   > Contains details about movie series
 
+-   Tv series page
+    > Contains details about TV series
