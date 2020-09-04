@@ -112,3 +112,7 @@ To Start Server:
 # Reflection
 
 # Improvement
+
+-   [ ] 현재 검색창을 `헤더에 넣음`으로서 언제나 어느 페이지에서나 접근이 가능하도록 만들기
+
+-   [ ]
