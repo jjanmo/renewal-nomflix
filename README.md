@@ -10,53 +10,53 @@
 
 ## Preview
 
-![preview](preview.gif)
+![preview](/screenshots/preview.gif)
 
 ## Tech Stack
 
--   React
--   Styled Components
--   React Router
--   Axios
--   React Hooks
+- React
+- Styled Components
+- React Router
+- Axios
+- React Hooks
 
 ## Site Contents and Structures
 
 ### Contents
 
--   Home page
+- Home page
 
-    > Contains three part, `1️⃣1️now playing movies` `2️⃣upcoming movies` `3️⃣airing today TVs`
+  > Contains three part, `1️⃣1️now playing movies` `2️⃣upcoming movies` `3️⃣airing today TVs`
 
--   Movie page
+- Movie page
 
-    > Contains two part, `1️⃣popular movies`, `2️⃣top rated movies`
+  > Contains two part, `1️⃣popular movies`, `2️⃣top rated movies`
 
--   TV page
+- TV page
 
-    > Contains three pard, `1️⃣popular TVs`, `2️⃣top rated TVs`, `3️⃣on the air TVs in the next 7 days`
+  > Contains three pard, `1️⃣popular TVs`, `2️⃣top rated TVs`, `3️⃣on the air TVs in the next 7 days`
 
--   Actor page
+- Actor page
 
-    > Can show `actor information`
+  > Can show `actor information`
 
--   Search page
+- Search page
 
-    > Can `look for` movie or TV
+  > Can `look for` movie or TV
 
--   Moive/TV detail page
+- Moive/TV detail page
 
-    > Contains `Each movie or TV details`
+  > Contains `Each movie or TV details`
 
--   Collection page
+- Collection page
 
-    > Contains details about `movie series` such as `The Lord of the Rings` series
+  > Contains details about `movie series` such as `The Lord of the Rings` series
 
--   TV series page
+- TV series page
 
-    > Contains `TV series list`
+  > Contains `TV series list`
 
-    > Contains `still-cut` of each season
+  > Contains `still-cut` of each season
 
 ### Directory Structure
 
@@ -203,7 +203,7 @@ To Start Server:
 
 ```
 각 드라마 시즌별로 클릭을 하면 그 시즌에 해당하는 페이지로 이동하게 되고 그 시즌 페이지에서는 각각의 에피소드를 클릭하면
-그 에피소드에 대한 줄거리와 스틸 컷을 보여줄 수 있게 만들자. 그렇게 하기 위해선 우선 전체적인 에피소트와 각각의 스틸컷에 대한 정보를 
+그 에피소드에 대한 줄거리와 스틸 컷을 보여줄 수 있게 만들자. 그렇게 하기 위해선 우선 전체적인 에피소트와 각각의 스틸컷에 대한 정보를
 리스트업 해야한다. 거기에 각각의 에피소드와 스틸컷을 매칭시켜줘야 한다. 그리고 리액트 후크를 사용해보자.
 ```
 
@@ -233,28 +233,28 @@ isClicked={Number(index) === Number(currentIndex)}
 
 ## 반응형
 
--   [ ] 현재 노트북에서 보는 것까지는 미디어쿼리가 작성되어 있습니다. `좀 더 다양한 기기`에서 볼 수 있도록 `미디어 쿼리`를 작성해보자
+- [ ] 현재 노트북에서 보는 것까지는 미디어쿼리가 작성되어 있습니다. `좀 더 다양한 기기`에서 볼 수 있도록 `미디어 쿼리`를 작성해보자
 
 ## 검색
 
--   [ ] 현재 검색창을 `헤더에 넣음`으로서 언제나 어느 페이지에서나 접근이 가능하도록 만들기
+- [ ] 현재 검색창을 `헤더에 넣음`으로서 언제나 어느 페이지에서나 접근이 가능하도록 만들기
 
--   [ ] 검색 후에 되돌아왔을 때(or 새로고침 후) `원래 검색상태`를 유지하도록 구현하기
+- [ ] 검색 후에 되돌아왔을 때(or 새로고침 후) `원래 검색상태`를 유지하도록 구현하기
 
--   [ ] 검색 결과에 대한 `무한 스크롤` 기능 구현하기
+- [ ] 검색 결과에 대한 `무한 스크롤` 기능 구현하기
 
 ## 섹션페이지
 
--   [ ] `페이징` 구현하기
+- [ ] `페이징` 구현하기
 
-    > 현재는 20개의 영화나 드라마를 보여주고 있다. 이것을 100개까지 보여주게 수정을 하고자한다. 여기서는 한 페이지 안에 2개 이상의 섹션이 존재하기 때문에 `페이징`을 통해서 구현하는 것이 적합하다고 생각한다.
+  > 현재는 20개의 영화나 드라마를 보여주고 있다. 이것을 100개까지 보여주게 수정을 하고자한다. 여기서는 한 페이지 안에 2개 이상의 섹션이 존재하기 때문에 `페이징`을 통해서 구현하는 것이 적합하다고 생각한다.
 
--   [ ] 한 페이지 안에 여러개의 섹션이 존재하는데, 각각의 섹션에 좀 더 빠르게 접근할 수 있는 `shorthand` 버튼 추가하기
+- [ ] 한 페이지 안에 여러개의 섹션이 존재하는데, 각각의 섹션에 좀 더 빠르게 접근할 수 있는 `shorthand` 버튼 추가하기
 
 ## 배우페이지
 
--   [ ] 배우들의 `필모그래프`를 추가하기
+- [ ] 배우들의 `필모그래프`를 추가하기
 
 ## 구조
 
--   [ ] 중복되는 구조 제거하기
+- [ ] 중복되는 구조 제거하기
