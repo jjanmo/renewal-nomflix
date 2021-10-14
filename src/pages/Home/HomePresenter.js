@@ -1,8 +1,8 @@
 import React from 'react';
-import Section from 'Components/Section';
 import styled from 'styled-components';
-import Loader from 'Components/Loader';
-import Item from 'Components/Item';
+import Section from 'components/Section';
+import Loader from 'components/Loader';
+import Item from 'components/Item';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 
@@ -23,7 +23,7 @@ function HomePresenter({ isLoading, nowPlaying, upcoming, airingToday }) {
       </Helmet>
       {nowPlaying && nowPlaying.length > 0 && (
         <Section title="Now Playing Movies">
-          {nowPlaying.map((movie) => (
+          {nowPlaying.map(movie => (
             <Item
               key={movie.id}
               id={movie.id}
@@ -38,7 +38,7 @@ function HomePresenter({ isLoading, nowPlaying, upcoming, airingToday }) {
       )}
       {upcoming && upcoming.length > 0 && (
         <Section title="Upcoming Movies">
-          {upcoming.map((movie) => (
+          {upcoming.map(movie => (
             <Item
               key={movie.id}
               id={movie.id}
@@ -53,7 +53,7 @@ function HomePresenter({ isLoading, nowPlaying, upcoming, airingToday }) {
       )}
       {airingToday && airingToday.length > 0 && (
         <Section title="Today Airing TVs">
-          {airingToday.map((tv) => (
+          {airingToday.map(tv => (
             <Item
               key={tv.id}
               id={tv.id}
