@@ -1,20 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Section from 'components/Section';
 import Loader from 'components/Loader';
 import Item from 'components/Item';
-import { Helmet } from 'react-helmet';
-import PropTypes from 'prop-types';
+import { movieApi } from 'api';
+import HelmetTitle from '../components/HelmetTitle';
 
 const Container = styled.div``;
 
-function MoviePresenter({ isLoading, popular, topRated }) {
+const Movie = () => {
+  const [popular, setPopular] = useState([]);
+  const [topRated, setTopRated] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    try {
+      const {
+        data: { results: _popular },
+      } = await movieApi.popular();
+      const {
+        data: { results: _topRated },
+      } = await movieApi.topRated();
+
+      setPopular(_popular);
+      setTopRated(_topRated);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (error) return <div>{JSON.stringify(error)}</div>;
+
   return isLoading ? (
     <>
       <Loader />
-      <Helmet>
-        <title>Movie | Nomflix</title>
-      </Helmet>
+      <HelmetTitle text="Movie" />
     </>
   ) : (
     <Container>
@@ -50,30 +79,6 @@ function MoviePresenter({ isLoading, popular, topRated }) {
       )}
     </Container>
   );
-}
-
-MoviePresenter.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  popular: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string,
-      poster_path: PropTypes.string,
-      vote_average: PropTypes.number,
-      release_date: PropTypes.string,
-      isMovie: PropTypes.bool,
-    })
-  ),
-  topRated: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string,
-      poster_path: PropTypes.string,
-      vote_average: PropTypes.number,
-      release_date: PropTypes.string,
-      isMovie: PropTypes.bool,
-    })
-  ),
 };
 
-export default MoviePresenter;
+export default Movie;
