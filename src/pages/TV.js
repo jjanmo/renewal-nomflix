@@ -1,20 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { tvApi } from 'api';
 import styled from 'styled-components';
+import HelmetTitle from 'components/HelmetTitle';
 import Section from 'components/Section';
-import Loader from 'components/Loader';
 import Item from 'components/Item';
-import { Helmet } from 'react-helmet';
-import PropTypes from 'prop-types';
+import Loader from 'components/Loader';
 
 const Container = styled.div``;
 
-function TVPresenter({ isLoading, popular, topRated, onTheAir }) {
+const TV = () => {
+  const [popular, setPopular] = useState([]);
+  const [topRated, setTopRated] = useState([]);
+  const [onTheAir, setOnTheAir] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const {
+        data: { results: _popular },
+      } = await tvApi.popular();
+      const {
+        data: { results: _topRated },
+      } = await tvApi.topRated();
+      const {
+        data: { results: _onTheAir },
+      } = await tvApi.onTheAir();
+
+      setPopular(_popular);
+      setTopRated(_topRated);
+      setOnTheAir(_onTheAir);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (error) return <div>{JSON.stringify(error)}</div>;
+
   return isLoading ? (
     <>
       <Loader />
-      <Helmet>
-        <title>TV | Nomflix</title>
-      </Helmet>
+      <HelmetTitle text="TV" />
     </>
   ) : (
     <Container>
@@ -62,37 +95,6 @@ function TVPresenter({ isLoading, popular, topRated, onTheAir }) {
       )}
     </Container>
   );
-}
-
-TVPresenter.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  popular: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      poster_path: PropTypes.string,
-      vote_average: PropTypes.number,
-      first_air_date: PropTypes.string,
-    })
-  ),
-  topRated: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      poster_path: PropTypes.string,
-      vote_average: PropTypes.number,
-      first_air_date: PropTypes.string,
-    })
-  ),
-  onTheAir: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      poster_path: PropTypes.string,
-      vote_average: PropTypes.number,
-      first_air_date: PropTypes.string,
-    })
-  ),
 };
 
-export default TVPresenter;
+export default TV;
