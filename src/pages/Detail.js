@@ -87,16 +87,16 @@ const Detail = ({ location, match }) => {
   );
 };
 
-Detail.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  movie: PropTypes.shape({
-    title: PropTypes.string,
-    backdrop_path: PropTypes.string,
-  }),
-  tv: PropTypes.shape({
-    name: PropTypes.string,
-    backdrop_path: PropTypes.string,
-  }),
-};
+// Detail.propTypes = {
+//   isLoading: PropTypes.bool.isRequired,
+//   movie: PropTypes.shape({
+//     title: PropTypes.string,
+//     backdrop_path: PropTypes.string,
+//   }),
+//   tv: PropTypes.shape({
+//     name: PropTypes.string,
+//     backdrop_path: PropTypes.string,
+//   }),
+// };
 
 export default Detail;
