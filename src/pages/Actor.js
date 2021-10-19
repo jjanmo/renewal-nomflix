@@ -1,8 +1,8 @@
-import React from 'react';
-import Loader from 'components/Loader';
+import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
-import { Helmet } from 'react-helmet';
-import PropTypes from 'prop-types';
+import { commonApi } from 'api';
+import HelmetTitle from '../components/HelmetTitle';
+import Loader from 'components/Loader';
 
 const ActorContainer = styled.div`
   width: 70%;
@@ -104,28 +104,51 @@ const Button = styled.button`
   }
 `;
 
-function ActorPresenter({ isLoading, actor, handleClick }) {
+const Actor = ({ match, history }) => {
+  const [actor, setActor] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchData = useCallback(async () => {
+    const id = match.params.id;
+    setIsLoading(true);
+    try {
+      const { data } = await commonApi.getActor(id);
+      setActor(data);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [match]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handleCloseClick = () => {
+    history.goBack();
+  };
+
+  if (error) return <div>{JSON.stringify(error)}</div>;
+
   return isLoading ? (
     <>
-      <Helmet>
-        <title>Loading | Nomflix</title>
-      </Helmet>
       <Loader />
+      <HelmetTitle text="Loading" />
     </>
   ) : (
     actor && (
       <>
-        <Helmet>
-          <title>{actor.name} | Nomflix</title>
-        </Helmet>
+        <HelmetTitle text={actor.name} />
         <ActorContainer>
-          <Button onClick={handleClick}>X</Button>
+          <Button onClick={handleCloseClick}>X</Button>
           <LeftBox>
             <Profile
               profileUrl={
                 actor.profile_path
                   ? `https://image.tmdb.org/t/p/w400${actor.profile_path}`
-                  : require('../../assets/no_poster.png')
+                  : require('../assets/no_poster.png')
               }
               isExisted={actor.profile_path && true}
             />
@@ -152,21 +175,6 @@ function ActorPresenter({ isLoading, actor, handleClick }) {
       </>
     )
   );
-}
-
-ActorPresenter.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  actor: PropTypes.shape({
-    biography: PropTypes.string,
-    birthday: PropTypes.string,
-    deathday: PropTypes.string,
-    id: PropTypes.number,
-    name: PropTypes.string,
-    place_of_birth: PropTypes.string,
-    profile_path: PropTypes.string,
-    imdb_id: PropTypes.string,
-  }),
-  handleClick: PropTypes.func,
 };
 
-export default ActorPresenter;
+export default Actor;
