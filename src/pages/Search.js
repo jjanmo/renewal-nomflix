@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { movieApi, tvApi } from 'api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import HelmetTitle from 'components/HelmetTitle';
 import Loader from 'components/Loader';
 import Section from 'components/Section';
 import Item from 'components/Item';
-import { Helmet } from 'react-helmet';
-import PropTypes from 'prop-types';
 
 const Form = styled.form`
   width: 100%;
@@ -71,28 +71,48 @@ const SearchTerm = styled.span`
   font-weight: 600;
 `;
 
-function SearchPresenter({
-  handleFocus,
-  handleBlur,
-  handleChange,
-  handleSubmit,
-  isLoading,
-  searchTerm,
-  movies,
-  TVs,
-  isSubmitted,
-}) {
+const Search = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [movies, setMovies] = useState([]);
+  const [TVs, setTVs] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const { data: mData } = await movieApi.search(searchTerm);
+      const { data: tData } = await tvApi.search(searchTerm);
+      setMovies(mData.results);
+      setTVs(tData.results);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChange = e => {
+    const { target } = e;
+    if (movies.length === 0 && TVs.length === 0) setIsSubmitted(false);
+    setSearchTerm(target.value);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (searchTerm !== '') {
+      fetchData(searchTerm);
+    }
+    setIsSubmitted(true);
+  };
+
+  if (error) return <div>{JSON.stringify(error)}</div>;
+
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <Input
-          placeholder="search"
-          autocomplete="off"
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          maxLength="40"
-        />
+        <Input placeholder="search" autocomplete="off" onChange={handleChange} maxLength="40" />
         <Button>
           <FontAwesomeIcon icon={faSearch} size="2x" />
         </Button>
@@ -100,15 +120,12 @@ function SearchPresenter({
       {isLoading ? (
         <>
           <Loader />
-          <Helmet>
-            <title>Loading | Nomflix</title>
-          </Helmet>
+          <HelmetTitle text="Loading" />
         </>
       ) : (
         <Container>
-          <Helmet>
-            <title>{isSubmitted ? `${searchTerm}` : 'Search'} | Nomflix</title>
-          </Helmet>
+          <HelmetTitle text={isSubmitted ? `${searchTerm}` : 'Search'} />
+
           {movies && movies.length > 0 && (
             <Section title="Movies">
               {movies.map(movie => (
@@ -150,34 +167,6 @@ function SearchPresenter({
       )}
     </>
   );
-}
-
-SearchPresenter.propTypes = {
-  handleFocus: PropTypes.func.isRequired,
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  isSubmitted: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  searchTerm: PropTypes.string.isRequired,
-  movies: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string,
-      poster_path: PropTypes.string,
-      vote_average: PropTypes.number,
-      release_date: PropTypes.string,
-    })
-  ).isRequired,
-  TVs: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string,
-      poster_path: PropTypes.string,
-      vote_average: PropTypes.number,
-      release_date: PropTypes.string,
-    })
-  ).isRequired,
 };
 
-export default SearchPresenter;
+export default Search;
