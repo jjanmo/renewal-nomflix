@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { movieApi, tvApi } from 'api';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import HelmetTitle from 'components/HelmetTitle';
 import MovieContent from 'components/MovieContent';
 import TVContent from 'components/TVContent';
@@ -32,7 +31,7 @@ const Detail = ({ location, match }) => {
   const [imdbId, setImdbId] = useState(null);
   const [error, setError] = useState(null);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     const _id = match.params.id;
     const path = location.pathname;
     setIsLoading(true);
@@ -42,10 +41,11 @@ const Detail = ({ location, match }) => {
         const { data } = await movieApi.getDetail(_id);
         setMovie(data);
       } else {
+        console.log();
         const { data } = await tvApi.getDetail(_id);
         const {
           data: { imdb_id },
-        } = await tvApi.getExternalId(imdb_id);
+        } = await tvApi.getExternalId(_id);
         setTV(data);
         setImdbId(imdb_id);
       }
@@ -54,11 +54,11 @@ const Detail = ({ location, match }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [location, match]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   if (error) return <div>{JSON.stringify(error)}</div>;
 
@@ -86,17 +86,5 @@ const Detail = ({ location, match }) => {
       ))
   );
 };
-
-// Detail.propTypes = {
-//   isLoading: PropTypes.bool.isRequired,
-//   movie: PropTypes.shape({
-//     title: PropTypes.string,
-//     backdrop_path: PropTypes.string,
-//   }),
-//   tv: PropTypes.shape({
-//     name: PropTypes.string,
-//     backdrop_path: PropTypes.string,
-//   }),
-// };
 
 export default Detail;
