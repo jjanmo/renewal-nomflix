@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
+import { movieApi } from 'api';
 import styled from 'styled-components';
 import Loader from 'components/Loader';
+import HelmetTitle from 'components/HelmetTitle';
 import Stars from 'components/Stars';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import PropTypes from 'prop-types';
 
 const Container = styled.div`
   padding: 0 5rem;
@@ -119,25 +119,50 @@ const Button = styled.button`
   }
 `;
 
-function CollectionPresenter({ isLoading, collection, handleClick }) {
+const Collection = ({ history, match }) => {
+  const [collection, setCollection] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchData = useCallback(async () => {
+    const id = match.params.id;
+    setIsLoading(true);
+
+    try {
+      const { data } = await movieApi.getCollection(id);
+      setCollection(data);
+      console.log(data);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [match]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handleBackClick = () => {
+    history.goBack();
+  };
+
+  if (error) return <div>{JSON.stringify(error)}</div>;
+
   return isLoading ? (
     <>
-      <Helmet>
-        <title>Loading | Nomflix</title>
-      </Helmet>
       <Loader />
+      <HelmetTitle text="Loading" />
     </>
   ) : (
     <Container>
-      <Helmet>
-        <title>{collection.name} | Nomflix</title>
-      </Helmet>
+      {/* <HelmetTitle text={'Dark Night'} /> */}
       <Background
         backdropUrl={collection.backdrop_path ? `https://image.tmdb.org/t/p/w1280/${collection.backdrop_path}` : ''}
       />
       <Title>
         {collection.name}
-        <Button onClick={handleClick}>back</Button>
+        <Button onClick={handleBackClick}>back</Button>
       </Title>
       <Overview>{collection.overview}</Overview>
       <List>
@@ -149,7 +174,7 @@ function CollectionPresenter({ isLoading, collection, handleClick }) {
                   posterUrl={
                     movie.backdrop_path
                       ? `https://image.tmdb.org/t/p/w400${movie.backdrop_path}`
-                      : require('../../assets/no_poster.png')
+                      : require('../assets/no_poster.png')
                   }
                   isExisted={movie.backdrop_path && true}
                 />
@@ -164,24 +189,6 @@ function CollectionPresenter({ isLoading, collection, handleClick }) {
       </List>
     </Container>
   );
-}
-
-CollectionPresenter.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  collection: PropTypes.shape({
-    name: PropTypes.string,
-    backdrop_path: PropTypes.string,
-    overview: PropTypes.string,
-    parts: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        title: PropTypes.string,
-        release_date: PropTypes.string,
-        vote_average: PropTypes.number,
-      })
-    ),
-  }),
-  handleClick: PropTypes.func,
 };
 
-export default CollectionPresenter;
+export default Collection;
