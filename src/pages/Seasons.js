@@ -125,7 +125,7 @@ const Button = styled.button`
 `;
 
 const Seasons = ({ history, match }) => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -160,48 +160,56 @@ const Seasons = ({ history, match }) => {
     </>
   ) : (
     <Container>
-      <HelmetTitle text={data.name} />
-      <Background backdropUrl={data.backdrop_path ? `https://image.tmdb.org/t/p/w1280/${data.backdrop_path}` : ''} />
-      <Title>
-        {data.name}
-        <Button onClick={handleClick}>back</Button>
-      </Title>
-      <SubTitle>{data.original_name && data.original_name === data.name ? '' : `( ${data.original_name} )`}</SubTitle>
-      <Overview>{data.overview}</Overview>
-      <List>
-        {data.seasons &&
-          data.seasons.map((season, index) => (
-            <SLink
-              to={{
-                pathname: `/seasons/${data.id}/${season.season_number}`,
-                state: {
-                  name: data.name,
-                  originalName: data.original_name,
-                  backdropUrl: data.backdrop_path ? `https://image.tmdb.org/t/p/w1280/${data.backdrop_path}` : '',
-                },
-              }}
-              key={index}
-            >
-              <TopBox>
-                <Name>{season.name}</Name>
-                <Row>
-                  <Year>{season.air_date}</Year>
-                  <Episode>Episode : {season.episode_count}</Episode>
-                </Row>
-              </TopBox>
-              <Item>
-                <Poster
-                  posterUrl={
-                    season.poster_path
-                      ? `https://image.tmdb.org/t/p/w200${season.poster_path}`
-                      : require('../assets/no_poster.png')
-                  }
-                  isExisted={season.poster_path && true}
-                />
-              </Item>
-            </SLink>
-          ))}
-      </List>
+      {data && (
+        <>
+          <HelmetTitle text={data.name} />
+          <Background
+            backdropUrl={data.backdrop_path ? `https://image.tmdb.org/t/p/w1280/${data.backdrop_path}` : ''}
+          />
+          <Title>
+            {data.name}
+            <Button onClick={handleClick}>back</Button>
+          </Title>
+          <SubTitle>
+            {data.original_name && data.original_name === data.name ? '' : `( ${data.original_name} )`}
+          </SubTitle>
+          <Overview>{data.overview}</Overview>
+          <List>
+            {data.seasons &&
+              data.seasons.map((season, index) => (
+                <SLink
+                  to={{
+                    pathname: `/seasons/${data.id}/${season.season_number}`,
+                    state: {
+                      name: data.name,
+                      originalName: data.original_name,
+                      backdropUrl: data.backdrop_path ? `https://image.tmdb.org/t/p/w1280/${data.backdrop_path}` : '',
+                    },
+                  }}
+                  key={index}
+                >
+                  <TopBox>
+                    <Name>{season.name}</Name>
+                    <Row>
+                      <Year>{season.air_date}</Year>
+                      <Episode>Episode : {season.episode_count}</Episode>
+                    </Row>
+                  </TopBox>
+                  <Item>
+                    <Poster
+                      posterUrl={
+                        season.poster_path
+                          ? `https://image.tmdb.org/t/p/w200${season.poster_path}`
+                          : require('../assets/no_poster.png')
+                      }
+                      isExisted={season.poster_path && true}
+                    />
+                  </Item>
+                </SLink>
+              ))}
+          </List>
+        </>
+      )}
     </Container>
   );
 };
