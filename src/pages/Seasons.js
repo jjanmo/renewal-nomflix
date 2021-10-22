@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import Loader from 'components/Loader';
+import HelmetTitle from '../components/HelmetTitle';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import PropTypes from 'prop-types';
+import { tvApi } from 'api';
+import Loader from '../components/Loader';
 
 const Container = styled.div`
   display: flex;
@@ -124,19 +124,43 @@ const Button = styled.button`
   }
 `;
 
-function SeasonsPresenter({ isLoading, data, handleClick }) {
+const Seasons = ({ history, match }) => {
+  const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleClick = () => {
+    history.goBack();
+  };
+
+  const fetchData = useCallback(async () => {
+    const id = match.params.id;
+    setIsLoading(true);
+
+    try {
+      const { data } = await tvApi.getDetail(id);
+      setData(data);
+    } catch (e) {
+      setError(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [match]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  if (error) return <div>{JSON.stringify(error)}</div>;
+
   return isLoading ? (
     <>
-      <Helmet>
-        <title>Loading | Nomflix</title>
-      </Helmet>
       <Loader />
+      <HelmetTitle text="Loading" />
     </>
   ) : (
     <Container>
-      <Helmet>
-        <title>{data.name} | Nomflix</title>
-      </Helmet>
+      <HelmetTitle text={data.name} />
       <Background backdropUrl={data.backdrop_path ? `https://image.tmdb.org/t/p/w1280/${data.backdrop_path}` : ''} />
       <Title>
         {data.name}
@@ -170,7 +194,7 @@ function SeasonsPresenter({ isLoading, data, handleClick }) {
                   posterUrl={
                     season.poster_path
                       ? `https://image.tmdb.org/t/p/w200${season.poster_path}`
-                      : require('../../assets/no_poster.png')
+                      : require('../assets/no_poster.png')
                   }
                   isExisted={season.poster_path && true}
                 />
@@ -180,26 +204,6 @@ function SeasonsPresenter({ isLoading, data, handleClick }) {
       </List>
     </Container>
   );
-}
-
-SeasonsPresenter.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  data: PropTypes.shape({
-    name: PropTypes.string,
-    backdrop_path: PropTypes.string,
-    original_name: PropTypes.string,
-    overview: PropTypes.string,
-    seasons: PropTypes.arrayOf(
-      PropTypes.shape({
-        season_number: PropTypes.number,
-        name: PropTypes.string,
-        air_date: PropTypes.string,
-        episode_count: PropTypes.number,
-        poster_path: PropTypes.string,
-      })
-    ),
-  }),
-  handleClick: PropTypes.func,
 };
 
-export default SeasonsPresenter;
+export default Seasons;

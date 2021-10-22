@@ -49,7 +49,7 @@ const Home = () => {
 
   return isLoading ? (
     <>
-      <HelmetTitle text="Home" />
+      <HelmetTitle text="Loading" />
       <Loader />
     </>
   ) : (
