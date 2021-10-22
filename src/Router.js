@@ -8,8 +8,8 @@ import Detail from 'pages/Detail';
 import Search from 'pages/Search';
 import Collection from 'pages/Collection';
 import Seasons from 'pages/Seasons';
-import Actor from 'pages/Actor';
 import Season from 'pages/Season';
+import Actor from 'pages/Actor';
 
 function AppRouter() {
   return (
