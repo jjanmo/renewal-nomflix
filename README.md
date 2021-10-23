@@ -16,9 +16,13 @@
 
 - [x] React Hooks 적용
 
-- [ ] Context API 적용
+- [ ] Styled UI 구조 변경
+
+  > styled components 분리 및 UI 구조 변경
 
 - [ ] Typescript 적용
+
+- [ ] Context API 적용
 
 - [ ] Design System 구축 및 Storybook 적용
 
