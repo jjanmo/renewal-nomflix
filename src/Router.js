@@ -10,21 +10,22 @@ import Collection from 'pages/Collection';
 import Seasons from 'pages/Seasons';
 import Season from 'pages/Season';
 import Actor from 'pages/Actor';
+import ROUTES from 'constants/routes';
 
 function AppRouter() {
   return (
     <Router>
       <Navigation />
-      <Route path="/" exact component={Home} />
-      <Route path="/movie" exact component={Movie} />
-      <Route path="/movie/:id" component={Detail} />
-      <Route path="/tv" exact component={TV} />
-      <Route path="/tv/:id" component={Detail} />
-      <Route path="/search" component={Search} />
-      <Route path="/collection/:id" component={Collection} />
-      <Route path="/seasons/:id" exact component={Seasons} />
-      <Route path="/actor/:id" exact component={Actor} />
-      <Route path="/seasons/:id/:season" component={Season} />
+      <Route path={ROUTES.HOME} exact component={Home} />
+      <Route path={ROUTES.MOVIES} exact component={Movie} />
+      <Route path={ROUTES.MOVIE_DETAIL} component={Detail} />
+      <Route path={ROUTES.TVS} exact component={TV} />
+      <Route path={ROUTES.TV_DETAIL} component={Detail} />
+      <Route path={ROUTES.SEARCH} component={Search} />
+      <Route path={ROUTES.COLLECTION} component={Collection} />
+      <Route path={ROUTES.SEASONS} exact component={Seasons} />
+      <Route path={ROUTES.ACTOR} exact component={Actor} />
+      <Route path={ROUTES.SEASON} component={Season} />
       <Redirect from="*" to="/" />
     </Router>
   );
