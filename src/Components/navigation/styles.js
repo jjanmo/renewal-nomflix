@@ -1,9 +1,7 @@
-import React from 'react';
 import styled from 'styled-components';
-import { withRouter, Link } from 'react-router-dom';
-import logo from 'assets/logo_transparent.png';
+import { Link } from 'react-router-dom';
 
-const Logo = styled.img`
+export const Logo = styled.img`
   position: absolute;
   top: -10%;
   left: 4%;
@@ -17,7 +15,7 @@ const Logo = styled.img`
   }
 `;
 
-const Header = styled.div`
+export const Header = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -30,7 +28,7 @@ const Header = styled.div`
   z-index: 2;
 `;
 
-const InnerBox = styled.div`
+export const InnerBox = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   width: 70%;
@@ -40,7 +38,7 @@ const InnerBox = styled.div`
   margin: 1rem;
 `;
 
-const Item = styled.li`
+export const Item = styled.li`
   list-style: none;
   width: 100%;
   &:not(:first-child) {
@@ -53,7 +51,7 @@ const Item = styled.li`
   color: ${props => (props.current ? '#1e272e' : '#d9dadd')};
 `;
 
-const SLink = styled(Link)`
+export const SLink = styled(Link)`
   font-size: 1.4rem;
   display: flex;
   justify-content: center;
@@ -63,29 +61,3 @@ const SLink = styled(Link)`
     font-size: 1.2rem;
   }
 `;
-
-function Navigation({ location: { pathname } }) {
-  return (
-    <Header>
-      <Link to="/">
-        <Logo src={logo}></Logo>
-      </Link>
-      <InnerBox>
-        <Item current={pathname === '/'}>
-          <SLink to="/">Home</SLink>
-        </Item>
-        <Item current={pathname === '/movie'}>
-          <SLink to="/movie">Movie</SLink>
-        </Item>
-        <Item current={pathname === '/tv'}>
-          <SLink to="/tv">TV</SLink>
-        </Item>
-        <Item current={pathname === '/search'}>
-          <SLink to="/search">Search</SLink>
-        </Item>
-      </InnerBox>
-    </Header>
-  );
-}
-
-export default withRouter(Navigation);

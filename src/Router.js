@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Route, Redirect } from 'react-router-dom';
-import Navigation from 'components/Navigation';
+import Navigation from 'components/navigation';
 import Home from 'pages/Home';
 import Movie from 'pages/Movie';
 import TV from 'pages/TV';
