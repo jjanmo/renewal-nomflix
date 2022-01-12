@@ -6,8 +6,6 @@
 
 > with [NomadCoders React Course](https://nomadcoders.co/react-for-beginners)
 
-> [Demo](https://gracious-saha-987b9e.netlify.app)
-
 ## Preview
 
 ![preview](/screenshots/preview.gif)
@@ -20,9 +18,9 @@
 - Axios
 - React Hooks
 
-## Site Contents and Structures
+## Structures
 
-### Contents
+### Pages
 
 - Home page
 
@@ -60,7 +58,7 @@
 
 ### Directory Structure
 
-```
+```shell
     src
     |-- assets
     |-- Components
